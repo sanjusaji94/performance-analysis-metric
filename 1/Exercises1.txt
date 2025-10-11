@@ -1,0 +1,11 @@
+### Q1: Which of these programs are fast enough?  Why?
+### Q2: Which of these programs are CPU-bound?
+### Q3: Which of the CPU-bound programs spend most of their time in user mode?
+### Q4: Which of the CPU-bound programs spend most of their time in system mode?
+### Q5: Which program consumes the most memory?
+### Q6: Which program consumes the most CPU time?
+### Q7: Which function consumes the most time according to the profile?
+### Q8: Which function is called most often?
+### Q9: Which function calls `sethi` most often
+### Q10: Which function is called by `lessthan` most often?
+### Q11: According to the `gcov` output, which line in `solve` is executed most often?
