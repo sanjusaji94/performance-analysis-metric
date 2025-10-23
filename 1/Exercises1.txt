@@ -1,4 +1,21 @@
 ### Q1: Which of these programs are fast enough?  Why?
+
+Answer:
+The following elapsed (wall clock) times were measured using '/usr/bin/time -v' :
+
+q1a - 0.32 s
+q1b - 0.41 s
+q1c - 0.15 s
+q1d - 0.37 s 
+q1e - 0.36 s 
+
+Explanation:
+Since no specific threshold was given, I assume any program that finishes within one second is fast enough.
+All five programs finish well below one second and are therefore considered fast enough.
+Elasped (wall clock) time is the total real-world duration from the start to finish, including the both CPU and waiting time.
+All measured values are short, showing that each program runs efficiently.
+
+
 ### Q2: Which of these programs are CPU-bound?
 ### Q3: Which of the CPU-bound programs spend most of their time in user mode?
 ### Q4: Which of the CPU-bound programs spend most of their time in system mode?
