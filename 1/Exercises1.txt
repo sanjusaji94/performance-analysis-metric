@@ -10,28 +10,93 @@ q1d - 0.37 s
 q1e - 0.36 s 
 
 Snippet from the transcript_1.txt :
-
-[ep12435347:~/Exercises/12435347/1:228] grep -E 'Command|Elapsed' transcript_1.txt
+```
+[ep12435347:~/Exercises/12435347/1:252] grep -E 'Command|Percent|Elapsed' transcript_1.txt
         Command being timed: "/usr/ftp/pub/anton/lvas/efficient/25/q1a"
+        Percent of CPU this job got: 99%
         Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.32
         Command being timed: "/usr/ftp/pub/anton/lvas/efficient/25/q1b"
+        Percent of CPU this job got: 3%
         Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.41
         Command being timed: "/usr/ftp/pub/anton/lvas/efficient/25/q1c"
+        Percent of CPU this job got: 297%
         Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.15
         Command being timed: "/usr/ftp/pub/anton/lvas/efficient/25/q1d"
+        Percent of CPU this job got: 98%
         Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.37
         Command being timed: "/usr/ftp/pub/anton/lvas/efficient/25/q1e"
+        Percent of CPU this job got: 99%
         Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.36
 
+```
 
 Explanation:
 Since no specific threshold was given, I assume any program that finishes within one second is fast enough.
 All five programs finish well below one second and are therefore considered fast enough.
-Elasped (wall clock) time is the total real-world duration from the start to finish, including the both CPU and waiting time.
+Eventhough the fastest wall-clock time is q1c (0.15 s), which also shows 297% CPU, indicating parallel execution that reduces wall time.
+Elapsed (wall clock) time is the total real-world duration from the start to finish, including the both CPU and waiting time.
 All measured values are short, showing that each program runs efficiently.
 
 
 ### Q2: Which of these programs are CPU-bound?
+
+Answer:
+To determine whether the programs are CPU-bound, I compared their CPU time (User + System)
+with their total real-world runtime (Elapsed).
+
+A program is CPU-bound when the CPU is actively executing code for most of the 
+runtime (User time + System time equals the Elapsed), and I/O-bound when it spends much of its time waiting for
+external operations (Elapsed is greater than CPU time).
+
+Snippet from transcript_1.txt:
+```
+Command being timed: "/usr/ftp/pub/anton/lvas/efficient/25/q1a"
+User time (seconds): 0.31
+System time (seconds): 0.01
+Elapsed (wall clock) time: 0:00.32
+
+Command being timed: "/usr/ftp/pub/anton/lvas/efficient/25/q1b"
+User time (seconds): 0.40
+System time (seconds): 0.01
+Elapsed (wall clock) time: 0:00.41
+
+Command being timed: "/usr/ftp/pub/anton/lvas/efficient/25/q1c"
+User time (seconds): 0.46
+System time (seconds): 0.00
+Elapsed (wall clock) time: 0:00.15
+Percent of CPU this job got: 297%
+
+Command being timed: "/usr/ftp/pub/anton/lvas/efficient/25/q1d"
+User time (seconds): 0.35
+System time (seconds): 0.02
+Elapsed (wall clock) time: 0:00.37
+
+Command being timed: "/usr/ftp/pub/anton/lvas/efficient/25/q1e"
+User time (seconds): 0.34
+System time (seconds): 0.02
+Elapsed (wall clock) time: 0:00.36
+
+```
+
+Analysis:
+
+Program | User | System | Elapsed | CPU Usage | Conclusion
+q1a | 0.31 | 0.01 | 0.32 | ~100% | CPU-bound
+q1b | 0.40 | 0.01 | 0.41 | ~100% | CPU-bound
+q1c | 0.46 | 0.00 | 0.15 | 297% | CPU-bound (multi-core)
+q1d | 0.35 | 0.02 | 0.37 | ~100% | CPU-bound
+q1e | 0.34 | 0.02 | 0.36 | ~100% | CPU-bound
+
+Explanation:
+All the five programs are CPU-bound because almost the entire elapsed time is spent doing computation on the CPU, with minimal or no waiting for I/O operations.
+
+For q1a,q1b,q1d,and q1e, CPU time(User + System) closely matches Elapsed time -> single-core CPU-bound.
+
+For q1c, total CPU time(0.46 s) is about three times larger than the elapsed (wall-clock time (0.15 s)), giving 297 % CPU utilization. 
+This means the program executed in parallel across roughly three CPU cores-still CPU-bound, but multi-threaded.
+Multi-core parallel if total CPU time exceeds elapsed time -> (User + System) > Elapsed (CPU % > 100 %)
+
+
 ### Q3: Which of the CPU-bound programs spend most of their time in user mode?
 ### Q4: Which of the CPU-bound programs spend most of their time in system mode?
 ### Q5: Which program consumes the most memory?
