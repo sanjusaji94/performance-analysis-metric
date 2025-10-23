@@ -9,6 +9,21 @@ q1c - 0.15 s
 q1d - 0.37 s 
 q1e - 0.36 s 
 
+Snippet from the transcript_1.txt :
+
+[ep12435347:~/Exercises/12435347/1:228] grep -E 'Command|Elapsed' transcript_1.txt
+        Command being timed: "/usr/ftp/pub/anton/lvas/efficient/25/q1a"
+        Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.32
+        Command being timed: "/usr/ftp/pub/anton/lvas/efficient/25/q1b"
+        Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.41
+        Command being timed: "/usr/ftp/pub/anton/lvas/efficient/25/q1c"
+        Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.15
+        Command being timed: "/usr/ftp/pub/anton/lvas/efficient/25/q1d"
+        Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.37
+        Command being timed: "/usr/ftp/pub/anton/lvas/efficient/25/q1e"
+        Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.36
+
+
 Explanation:
 Since no specific threshold was given, I assume any program that finishes within one second is fast enough.
 All five programs finish well below one second and are therefore considered fast enough.
