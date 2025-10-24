@@ -169,6 +169,62 @@ User-mode dominated CPU-bound programs: q1c and q1e
 
 
 ### Q4: Which of the CPU-bound programs spend most of their time in system mode?
+
+Answer:
+
+To determine which CPU-bound programs spend most of their time in system mode, I compared the User time and the System
+time values reported by /usr/bin/time -v for the same CPU-bound programs identified in Q2.
+
+A program that spends more time in system mode executes many operations that require kernel interaction, such as I/O,
+memory management, or system calls. This is indicated by higher System time compared to User time.
+
+Snippet from trnscript_1.txt:
+```
+[ep12435347:~/Exercises/12435347/1:274] grep -E 'Command|User|System|Elapsed|Percent' transcript_1.txt
+        Command being timed: "/usr/ftp/pub/anton/lvas/efficient/25/q1a"
+        User time (seconds): 0.05
+        System time (seconds): 0.26
+        Percent of CPU this job got: 99%
+        Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.32
+        Command being timed: "/usr/ftp/pub/anton/lvas/efficient/25/q1b"
+        User time (seconds): 0.00
+        System time (seconds): 0.00
+        Percent of CPU this job got: 3%
+        Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.41
+        Command being timed: "/usr/ftp/pub/anton/lvas/efficient/25/q1c"
+        User time (seconds): 0.46
+        System time (seconds): 0.00
+        Percent of CPU this job got: 297%
+        Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.15
+        Command being timed: "/usr/ftp/pub/anton/lvas/efficient/25/q1d"
+        User time (seconds): 0.00
+        System time (seconds): 0.37
+        Percent of CPU this job got: 98%
+        Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.37
+        Command being timed: "/usr/ftp/pub/anton/lvas/efficient/25/q1e"
+        User time (seconds): 0.35
+        System time (seconds): 0.01
+        Percent of CPU this job got: 99%
+        Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.36
+```
+Analysis Table (CPU-bound programs):
+
+| Program | User (s) | System (s) | Elapsed (s) | CPU % | Dominant Mode | Interpretation                      |
+| ------- | -------- | ---------- | ----------- | ----- | ------------- | ----------------------------------- |
+| q1a     | 0.05     | 0.26       | 0.32        | 99 %  | **System**    | Spends more time in kernel/syscalls |
+| q1c     | 0.46     | 0.00       | 0.15        | 297 % | **User**      | Pure computation, no kernel time    |
+| q1d     | 0.00     | 0.37       | 0.37        | 98 %  | **System**    | System mode dominates completely    |
+| q1e     | 0.35     | 0.01       | 0.36        | 99 %  | **User**      | Mostly user-level computation       |
+
+Conclusion:
+Among the CPU-bound programs those with System time greater than User time are spending most of their 
+runtime in the system mode. This means they are heavily using kernel functions, performing system calls, or accessing
+I/O resources.
+Programs with higher User time are dominated by computations in user space instead.
+
+The CPU-Bound programs that spend most of their time in system mode are: q1a and q1d
+
+
 ### Q5: Which program consumes the most memory?
 ### Q6: Which program consumes the most CPU time?
 ### Q7: Which function consumes the most time according to the profile?
