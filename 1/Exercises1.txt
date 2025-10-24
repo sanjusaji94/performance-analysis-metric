@@ -534,6 +534,9 @@ Parameter meanings in Call Graph:
 4. Called->	        Number of times this function was invoked
 5. Parent lines->	Show which functions called it, and how many times
 6. Child lines->	Show which functions it called, and how many times
+                        -> Lines above → Parent functions (who called it)
+                        -> Line with the index → the function being analyzed
+                        -> Lines below → Child functions (who it calls)
 
 Relevant snippet from gprof_output.txt:
 
@@ -561,4 +564,39 @@ Thus, sum() is the primary caller of sethi() in the program.
 Function that calls sethi() most often: sum()
 
 ### Q10: Which function is called by `lessthan` most often?
+
+Answer:
+
+To determine which function is called by lessthan() most often,
+we examine the Call Graph section of the gprof output.
+
+Relevant snippet from gprof_output.txt: 
+```
+-----------------------------------------------
+                0.00    0.00 2633686/2633686     solve [1]
+[7]      0.0    0.00    0.00 2633686         lessthan [7]
+                0.00    0.00 2633686/14074791     sethi [5]
+                0.00    0.00 2633573/13857798     setlo [6]
+-----------------------------------------------
+```
+Interpretation(above graph):
+1. [7] → the function being analyzed (lessthan())
+
+2. Lines above [7] → show who called lessthan() (its parents)
+
+3. Lines below [7] → show which functions lessthan() calls (its children)
+                      →  sethi() 2,633,686 times
+                      →  setlo() 2,633,573 times
+                      Thus, both are frequently called, but sethi() has a slightly higher call count.
+
+Conclusion:
+
+According to the gprof Call Graph, lessthan() calls the function sethi() most often,
+with approximately 2,633,686 invocations, closely followed by setlo() with 2,633,573 calls.
+Therefore, sethi() is the most frequently called function by lessthan().
+
+Function called by lessthan() most often: sethi()
+
+
+
 ### Q11: According to the `gcov` output, which line in `solve` is executed most often?
