@@ -350,6 +350,15 @@ Highest total CPU time(multi-core):q1c
 Highest single-core CPU usage:q1e
 
 ### Q7: Which function consumes the most time according to the profile?
+
+Answer:
+
+To determine which function within the program magichex consumes the most CPU time during execution.
+
+
+
+
+
 ### Q8: Which function is called most often?
 ### Q9: Which function calls `sethi` most often
 ### Q10: Which function is called by `lessthan` most often?
