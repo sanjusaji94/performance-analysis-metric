@@ -464,5 +464,101 @@ These are frequently used functions, likely supporting computations in higher-le
 Most often called function: sethi()
 
 ### Q9: Which function calls `sethi` most often
+
+Answer:
+
+To determine which function calls sethi() most often,
+we examine the Call Graph section of the gprof report.
+Unlike the flat profile (which shows total calls and time per function),
+the Call Graph displays who calls whom, along with the number of calls between functions.
+
+Snippet from gprof_out.txt:
+```
+Call graph:
+
+index % time    self  children    called     name
+                0.03    0.03   44240/44240       labeling [2]
+[1]    100.0    0.03    0.03   44240         solve [1]
+                0.03    0.00 3170851/3170851     sum [4]
+                0.00    0.00 2633686/2633686     lessthan [7]
+-----------------------------------------------
+                                9697             labeling [2]
+                0.00    0.06       1/1           main [3]
+[2]    100.0    0.00    0.06       1+9697    labeling [2]
+                0.03    0.03   44240/44240       solve [1]
+                0.00    0.00      26/26          printhexagon [8]
+                                9697             labeling [2]
+-----------------------------------------------
+                                                 <spontaneous>
+[3]    100.0    0.00    0.06                 main [3]
+                0.00    0.06       1/1           labeling [2]
+                0.00    0.00       1/1           makehexagon [9]
+-----------------------------------------------
+                0.03    0.00 3170851/3170851     solve [1]
+[4]     50.0    0.03    0.00 3170851         sum [4]
+                0.00    0.00 11441105/14074791     sethi [5]
+                0.00    0.00 11224225/13857798     setlo [6]
+-----------------------------------------------
+                0.00    0.00 2633686/14074791     lessthan [7]
+                0.00    0.00 11441105/14074791     sum [4]
+[5]      0.0    0.00    0.00 14074791         sethi [5]
+-----------------------------------------------
+                0.00    0.00 2633573/13857798     lessthan [7]
+                0.00    0.00 11224225/13857798     sum [4]
+[6]      0.0    0.00    0.00 13857798         setlo [6]
+-----------------------------------------------
+                0.00    0.00 2633686/2633686     solve [1]
+[7]      0.0    0.00    0.00 2633686         lessthan [7]
+                0.00    0.00 2633686/14074791     sethi [5]
+                0.00    0.00 2633573/13857798     setlo [6]
+-----------------------------------------------
+                0.00    0.00      26/26          labeling [2]
+[8]      0.0    0.00    0.00      26         printhexagon [8]
+-----------------------------------------------
+                0.00    0.00       1/1           main [3]
+[9]      0.0    0.00    0.00       1         makehexagon [9]
+-----------------------------------------------
+
+```
+Index by function name
+
+   [2] labeling                [8] printhexagon            [1] solve
+   [7] lessthan                [5] sethi                   [4] sum
+   [9] makehexagon             [6] setlo
+
+Parameter meanings in Call Graph:
+
+1. Index [n] ->	        Unique ID assigned to each function in the report
+2. Self ->	        Time spent in the function itself
+3. Children->	        Time spent in its called (child) functions
+4. Called->	        Number of times this function was invoked
+5. Parent lines->	Show which functions called it, and how many times
+6. Child lines->	Show which functions it called, and how many times
+
+Relevant snippet from gprof_output.txt:
+
+```
+-----------------------------------------------
+                0.00    0.00 2633686/14074791     lessthan [7]
+                0.00    0.00 11441105/14074791     sum [4]
+[5]      0.0    0.00    0.00 14074791         sethi [5]
+-----------------------------------------------
+```
+Interpretation(Above graph):
+
+1. sethi() (index [5]) is the callee (child function).
+
+2. It is called primarily by sum() and secondarily by lessthan().
+
+3. The notation 2633686/14074791 means lessthan() made 2,633,686 calls out of the total 14,074,791 calls to sethi().
+
+Conclusion:
+
+According to the gprof call graph, the function sum() calls sethi() the most often,
+with approximately 11,441,105 invocations, followed by lessthan() with 2,633,686 calls.
+Thus, sum() is the primary caller of sethi() in the program.
+
+Function that calls sethi() most often: sum()
+
 ### Q10: Which function is called by `lessthan` most often?
 ### Q11: According to the `gcov` output, which line in `solve` is executed most often?
