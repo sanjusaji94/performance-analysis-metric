@@ -38,6 +38,9 @@ Elapsed (wall clock) time is the total real-world duration from the start to fin
 All measured values are short, showing that each program runs efficiently.
 
 
+
+
+
 ### Q2: Which of these programs are CPU-bound?
 
 Answer:
@@ -112,6 +115,8 @@ Not CPU-bound: q1b
 
 
 
+
+
 ### Q3: Which of the CPU-bound programs spend most of their time in user mode?
 
 Answer: 
@@ -177,6 +182,8 @@ User-mode dominated CPU-bound programs: q1c and q1e
 
 
 
+
+
 ### Q4: Which of the CPU-bound programs spend most of their time in system mode?
 
 Answer:
@@ -234,6 +241,9 @@ Programs with higher User time are dominated by computations in user space inste
 The CPU-Bound programs that spend most of their time in system mode are: q1a and q1d
 
 
+
+
+
 ### Q5: Which program consumes the most memory?
 
 Answer:
@@ -281,6 +291,10 @@ This indicates that q1a required significantly more memory resources compared to
 to data structures or buffers loaded entirely into memory.
 
 Highest memory-consuming program: q1a
+
+
+
+
 
 ### Q6: Which program consumes the most CPU time?
 
@@ -348,6 +362,10 @@ However, when considering single-core execution, q1e uses one CPU core almost fu
 
 Highest total CPU time(multi-core):q1c
 Highest single-core CPU usage:q1e
+
+
+
+
 
 ### Q7: Which function consumes the most time according to the profile?
 
@@ -423,6 +441,9 @@ According to the gprof flat profile, the functions sum() and solve() consume the
 Functions that consume the most time: sum() and solve()
 
 
+
+
+
 ### Q8: Which function is called most often?
 
 Answer:
@@ -462,6 +483,10 @@ with approximately 14,074,791 invocations, followed by setlo() with 13,857,798 c
 These are frequently used functions, likely supporting computations in higher-level routines such as sum() and solve().
 
 Most often called function: sethi()
+
+
+
+
 
 ### Q9: Which function calls `sethi` most often
 
@@ -563,6 +588,10 @@ Thus, sum() is the primary caller of sethi() in the program.
 
 Function that calls sethi() most often: sum()
 
+
+
+
+
 ### Q10: Which function is called by `lessthan` most often?
 
 Answer:
@@ -596,6 +625,8 @@ with approximately 2,633,686 invocations, closely followed by setlo() with 2,633
 Therefore, sethi() is the most frequently called function by lessthan().
 
 Function called by lessthan() most often: sethi()
+
+
 
 
 
