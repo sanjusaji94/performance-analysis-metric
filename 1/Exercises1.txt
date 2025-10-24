@@ -354,10 +354,71 @@ Highest single-core CPU usage:q1e
 Answer:
 
 To determine which function within the program magichex consumes the most CPU time during execution.
+A function-level performance profile was generated using GNU 'gprof', which reports
+how much total CPU time each function takes and how often it is called.
+
+Commands used:
+```
+# 1. Compile with profiling enabled
+gcc -pg -O /usr/ftp/pub/anton/lvas/effizienz-aufgabe23/magichex.c -o magichex
+
+# 2. Run with required arguments
+./magichex 3 0 >/dev/null
+
+# 3. Generate profile report
+gprof magichex gmon.out > gprof_output.txt
+
+```
+Summary of Tools Used:
+
+1. -pg -> enables function-level profiling and creates gmon.out
+2. ./magichex 3 0 -> runs the program with the specified input
+3. gmon.out -> Binary log file automatically written at program exit containing timing and call data
+4. gprof -> Analyses execution data and lists time spent in each function (reads executable and gmon.out,
+   then produces readable performance report)
+
+Snippet from gprof_output.txt:
+```
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  ms/call  ms/call  name    
+ 50.05      0.03     0.03  3170851     0.00     0.00  sum
+ 50.05      0.06     0.03    44240     0.00     0.00  solve
+  0.00      0.06     0.00 14074791     0.00     0.00  sethi
+  0.00      0.06     0.00 13857798     0.00     0.00  setlo
+  0.00      0.06     0.00  2633686     0.00     0.00  lessthan
+  0.00      0.06     0.00       26     0.00     0.00  printhexagon
+  0.00      0.06     0.00        1     0.00    60.06  labeling
+  0.00      0.06     0.00        1     0.00     0.00  makehexagon
+
+```
+The gprof flat profile metrics for each function:
+
+1. % time – percentage of total program CPU time spent in this function (key indicator for most time consumed)
+
+2. self seconds – actual time spent inside the function itself
+
+3. calls – number of times the function was executed
+
+4. ms/call – average time per function call
+
+The function with the highest % time or self seconds value is considered to consume the most CPU time.
 
 
 
+Analysis Table (Relevant):
 
+| Function  | % Time | Self Seconds | Calls     | 
+| --------- | ------ | ------------ | --------- | 
+| `sum()`   | 50.05% | 0.03         | 3,170,851 | 
+| `solve()` | 50.05% | 0.03         | 44,240    | 
+
+Conclusion:
+
+According to the gprof flat profile, the functions sum() and solve() consume the most CPU time, each taking about 
+50% of total runtime. Both shows a self seconds value of (0.03 s), making them the program's main performance bottlenecks.
 
 ### Q8: Which function is called most often?
 ### Q9: Which function calls `sethi` most often
