@@ -220,10 +220,10 @@ Analysis Table (CPU-bound programs):
 
 | Program | User (s) | System (s) | Elapsed (s) | CPU % | Dominant Mode | Interpretation                      |
 | ------- | -------- | ---------- | ----------- | ----- | ------------- | ----------------------------------- |
-| q1a     | 0.05     | 0.26       | 0.32        | 99 %  | **System**    | Spends more time in kernel/syscalls |
-| q1c     | 0.46     | 0.00       | 0.15        | 297 % | **User**      | Pure computation, no kernel time    |
-| q1d     | 0.00     | 0.37       | 0.37        | 98 %  | **System**    | System mode dominates completely    |
-| q1e     | 0.35     | 0.01       | 0.36        | 99 %  | **User**      | Mostly user-level computation       |
+| q1a     | 0.05     | 0.26       | 0.32        | 99 %  | System        | Spends more time in kernel/syscalls |
+| q1c     | 0.46     | 0.00       | 0.15        | 297 % | User          | Pure computation, no kernel time    |
+| q1d     | 0.00     | 0.37       | 0.37        | 98 %  | System        | System mode dominates completely    |
+| q1e     | 0.35     | 0.01       | 0.36        | 99 %  | User          | Mostly user-level computation       |
 
 Conclusion:
 Among the CPU-bound programs those with System time greater than User time are spending most of their 
@@ -423,10 +423,46 @@ According to the gprof flat profile, the functions sum() and solve() consume the
 Functions that consume the most time: sum() and solve()
 
 
-
-
-
 ### Q8: Which function is called most often?
+
+Answer:
+
+To determine which function is called the most number of times,
+we examine the “calls” column in the flat profile section of the gprof report.
+This column shows how many times each function was invoked during the program’s execution.
+
+Snippet from gprof_output.txt:
+```
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  ms/call  ms/call  name    
+ 50.05      0.03     0.03  3170851     0.00     0.00  sum
+ 50.05      0.06     0.03    44240     0.00     0.00  solve
+  0.00      0.06     0.00 14074791     0.00     0.00  sethi
+  0.00      0.06     0.00 13857798     0.00     0.00  setlo
+  0.00      0.06     0.00  2633686     0.00     0.00  lessthan
+  0.00      0.06     0.00       26     0.00     0.00  printhexagon
+  0.00      0.06     0.00        1     0.00    60.06  labeling
+  0.00      0.06     0.00        1     0.00     0.00  makehexagon
+
+```
+Analysis Table (Top 3 relevant):
+
+| Function  |      Calls | % Time | Self Seconds | 
+| --------- | ---------: | -----: | -----------: | 
+| `sethi()` | 14,074,791 |  0.00% |         0.00 | 
+| `setlo()` | 13,857,798 |  0.00% |         0.00 |                     
+| `sum()`   |  3,170,851 | 50.05% |         0.03 | 
+
+Conclusion:
+According to the gprof flat profile, the function sethi() is called most often,
+with approximately 14,074,791 invocations, followed by setlo() with 13,857,798 calls.
+These are frequently used functions, likely supporting computations in higher-level routines such as sum() and solve().
+
+Most often called function: sethi()
+
 ### Q9: Which function calls `sethi` most often
 ### Q10: Which function is called by `lessthan` most often?
 ### Q11: According to the `gcov` output, which line in `solve` is executed most often?
