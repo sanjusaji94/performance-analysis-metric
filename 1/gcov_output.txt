@@ -1,0 +1,8 @@
+File '/usr/ftp/pub/anton/lvas/effizienz-aufgabe23/magichex.c'
+Lines executed:94.27% of 157
+Branches executed:98.41% of 126
+Taken at least once:83.33% of 126
+Calls executed:52.38% of 42
+Creating 'magichex.c.gcov'
+
+Lines executed:94.27% of 157
