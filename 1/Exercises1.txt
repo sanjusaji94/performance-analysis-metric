@@ -49,6 +49,13 @@ runtime (User time + System time equals the Elapsed), and I/O-bound when it spen
 external operations (Elapsed is greater than CPU time). And in the case of Percent of CPU a program got, a CPU-bound program will 
 show a utilization close to 100% or above 100% if it uses multiple cores ,whereas an I/O-bound or idle program will have a much lower CPU percentage.
 
+The relationship between CPU time and elapsed time can also be expressed using the CPU utilization formula:
+
+CPU Utilization (%)=((User time+System time)/Elapsed time)×100
+
+A CPU-bound program will have utilization close to 100% (or above 100% if it uses multiple cores),
+whereas an I/O-bound program will have a much lower percentage.
+
 
 Snippet from transcript_1.txt:
 ```
