@@ -226,6 +226,53 @@ The CPU-Bound programs that spend most of their time in system mode are: q1a and
 
 
 ### Q5: Which program consumes the most memory?
+
+Answer:
+
+To determine which program consumes the most memory, I examined the "Maximum resident set size(kbytes)" value reported
+by /usr/bin/time -v.
+This metric represents the peak amount of physical Ram used by a program during its execution - the moment
+when the program occupied the most memory in main memory.
+
+It is the most reliable indicator of memory usage, as others reported averages (e.g.,Average shared text size, Average
+unshared data size, Average stack size) are usually zero or unrealiable on modern Linux systems.
+
+Therefore, the maximum resident set size (RSS) is used to identify which program consumes the most memory.
+
+Snippet from transcript_1:
+```
+[ep12435347:~/Exercises/12435347/1:270] grep -E 'Command|Maximum resident' transcript_1.txt
+        Command being timed: "/usr/ftp/pub/anton/lvas/efficient/25/q1a"
+        Maximum resident set size (kbytes): 983280
+        Command being timed: "/usr/ftp/pub/anton/lvas/efficient/25/q1b"
+        Maximum resident set size (kbytes): 8312
+        Command being timed: "/usr/ftp/pub/anton/lvas/efficient/25/q1c"
+        Maximum resident set size (kbytes): 8344
+        Command being timed: "/usr/ftp/pub/anton/lvas/efficient/25/q1d"
+        Maximum resident set size (kbytes): 1924
+        Command being timed: "/usr/ftp/pub/anton/lvas/efficient/25/q1e"
+        Maximum resident set size (kbytes): 9532
+```
+
+Analysis Table:
+
+| Program | Maximum Resident Set Size (kB) | Interpretation              |
+| ------- | -----------------------------: | --------------------------- |
+| q1a     |                        983,280 | Extremely high memory usage |
+| q1b     |                          8,312 | Low memory usage            |
+| q1c     |                          8,344 | Low memory usage            |
+| q1d     |                          1,924 | Very low memory usage       |
+| q1e     |                          9,532 | Moderate memory usage       |
+
+Conclusion:
+The Maximum resident set size (RSS) represents the peak physical memory used by a process during execution.
+Among all the programs q1a consumes the most memory, with a maximum resident set size of 983,280 kB (~960MB), while 
+the others are all below 10,000 kB (~10 MB).
+This indicates that q1a required significantly more memory resources compared to the other programs, likely due
+to data structures or buffers loaded entirely into memory.
+
+Highest memory-consuming program: q1a
+
 ### Q6: Which program consumes the most CPU time?
 ### Q7: Which function consumes the most time according to the profile?
 ### Q8: Which function is called most often?
