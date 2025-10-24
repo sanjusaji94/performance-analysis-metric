@@ -420,6 +420,12 @@ Conclusion:
 According to the gprof flat profile, the functions sum() and solve() consume the most CPU time, each taking about 
 50% of total runtime. Both shows a self seconds value of (0.03 s), making them the program's main performance bottlenecks.
 
+Functions that consume the most time: sum() and solve()
+
+
+
+
+
 ### Q8: Which function is called most often?
 ### Q9: Which function calls `sethi` most often
 ### Q10: Which function is called by `lessthan` most often?
