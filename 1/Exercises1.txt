@@ -648,7 +648,7 @@ gcc -fprofile-arcs -ftest-coverage -O /usr/ftp/pub/anton/lvas/effizienz-aufgabe2
 
 # 3. Produce readable annotated file
 gcov -b -o . /usr/ftp/pub/anton/lvas/effizienz-aufgabe23/magichex.c > gcov_output.txt
-
+(The summary output was saved to gcov_output.txt to verify that 94.27% of the code was executed during analysis.)
 
 Options used:
 
@@ -663,9 +663,9 @@ Options used:
 
 Files involved:
 
-magichex.gcno ->	Static notes file, created at compile time
-magichex.gcda ->	Dynamic data file, created at runtime
-magichex.c.gcov	->      Human-readable annotated output created by gcov
+magichex.gcno ->	Static notes file, created at compile time ('.gcno'file containing the structure of the program (where all counters will go)).
+magichex.gcda ->	Dynamic data file, created at runtime ('.gcda' records how many times each line or branch of the program was executed.).
+magichex.c.gcov	->      Human-readable annotated output created by gcov.
 
 
 Note: Since the source file was in a different directory, GCC automatically named the coverage files as
