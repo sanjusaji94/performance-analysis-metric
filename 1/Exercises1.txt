@@ -632,4 +632,102 @@ Function called by lessthan() most often: sethi()
 
 ### Q11: According to the `gcov` output, which line in `solve` is executed most often?
 
+Answer:
+
+To identify the most frequently executed line in the function solve(),
+I used GNU gcov to generate line-by-line execution counts.
+The source was compiled with coverage flags and then run once using the provided invocation.
+
+Commands used:
+
+# 1. Compile with coverage instrumentation
+gcc -fprofile-arcs -ftest-coverage -O /usr/ftp/pub/anton/lvas/effizienz-aufgabe23/magichex.c -o magichex11
+
+# 2. Run to generate runtime data (.gcda)
+./magichex11 3 0 >/dev/null
+
+# 3. Produce readable annotated file
+gcov -b -o . /usr/ftp/pub/anton/lvas/effizienz-aufgabe23/magichex.c > gcov_output.txt
+
+
+Options used:
+
+-fprofile-arcs → inserts counters to record how many times each block executes.
+
+-ftest-coverage → generates .gcno (notes) file with structural info.
+
+-b → adds branch-coverage details to the report.
+
+-o . → tells gcov where to find the .gcno and .gcda files.
+
+
+Files involved:
+
+magichex.gcno ->	Static notes file, created at compile time
+magichex.gcda ->	Dynamic data file, created at runtime
+magichex.c.gcov	->      Human-readable annotated output created by gcov
+
+
+Note: Since the source file was in a different directory, GCC automatically named the coverage files as
+magichex11-magichex.gcno and magichex11-magichex.gcda.
+I renamed them to the standard format (magichex.gcno, magichex.gcda) for compatibility with gcov.
+
+
+Snippet from magichex.c.gcov: 
+
+```
+function solve called 44240 returned 100% blocks executed 100%
+    44240:  144:int solve(unsigned long n, long d, Var vs[])
+    44240:  145:{
+    44240:  146:  unsigned long r = 2*n-1;
+    44240:  147:  unsigned long H = 3*n*n-3*n+1;
+    44240:  148:  long M = d*H;
+    44240:  149:  long o = d*r - (H-1)/2; /* offset in occupation array */
+    44240:  150:  unsigned long occupation[H]; /* if vs[i] has value x, occupation[x-o]==i, 
+        -:  151:                                  if no vs[*] has value x, occupation[x-o]==H*/
+    44240:  152:  unsigned long corners[] = {0, n-1, (n-1)*r+0, (n-1)*r+r-1, (r-1)*r+n-1, (r-1)*r+r-1};
+        -:  153:  unsigned long i;
+        -:  154:  //printf("(re)start\n");
+        -:  155:  /* deal with the alldifferent constraint */
+   884800:  156:  for (i=0; i<H; i++)
+branch  0 taken 95%
+branch  1 taken 5% (fallthrough)
+   840560:  157:    occupation[i] = r*r;
+  1539379:  158: restart:
+ 32431334:  159:  for (i=0; i<r*r; i++) {
+branch  0 taken 97%
+branch  1 taken 3%
+ 31322521:  160:    Var *v = &vs[i];
+ 31322521:  161:    if (v->lo == v->hi && occupation[v->lo-o] != i) {
+branch  0 taken 41% (fallthrough)
+branch  1 taken 59%
+branch  2 taken 3% (fallthrough)
+branch  3 taken 97%
+   430566:  162:      if (occupation[v->lo-o] < r*r)
+branch  0 taken 96% (fallthrough)
+branch  1 taken 4%
+        -:  163:        return 0; /* another variable has the same value */
+   413662:  164:      occupation[v->lo-o] = i; /* occupy v->lo */
+   413662:  165:      goto restart;
+        -:  166:    }
+        -:  167:  }
+        -:  168:  /* now propagate the alldifferent results to the bounds */
+
+```
+Interpretation:
+
+1. Line 159 (for (i=0; i<r*r; i++)) inside solve()
+   executed 32,431,334 times, the highest count in the function.
+
+2. This loop iterates over all hexagon variables and dominates the program’s execution time.
+
+Conclusion :
+
+According to the gcov output,
+
+the line most frequently executed in solve() is line 159,
+containing the statement
+for (i=0; i<r*r; i++),
+executed 32,431,334 times.
+
 
