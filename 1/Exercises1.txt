@@ -51,7 +51,7 @@ show a utilization close to 100% or above 100% if it uses multiple cores ,wherea
 
 The relationship between CPU time and elapsed time can also be expressed using the CPU utilization formula:
 
-CPU Utilization (%)=((User time+System time)/Elapsed time)×100
+CPU Utilization (%)= ((User time+System time) / Elapsed time) × 100
 
 A CPU-bound program will have utilization close to 100% (or above 100% if it uses multiple cores),
 whereas an I/O-bound program will have a much lower percentage.
@@ -104,6 +104,8 @@ Conclusion:
 For q1a,q1c,q1d,q1e, the sum of user + system time closely matches the elapsed time and the CPU utilization is around 100%. These programs keep the CPU busy throughtout their execution and therefore CPU-bound.
 
 q1b shows user + system << elapsed and only 3% CPU usage, indicating it spends most of its time waiting or sleeping- not CPU-bound.
+
+The program q1b shows only 3% CPU utilization, meaning it was mostly idle or waiting for external events rather than performing computation, moreover the CPU does almost nothing — it’s free 97% of the time — a clear sign of an I/O-bound or sleeping process.
 
 CPU-bound: q1a,q1c,q1d, and q1e.
 Not CPU-bound: q1b
@@ -281,6 +283,15 @@ to data structures or buffers loaded entirely into memory.
 Highest memory-consuming program: q1a
 
 ### Q6: Which program consumes the most CPU time?
+
+Answer:
+
+To determine which program consumes the most CPU time, I examined the "User time (seconds)" and "System time (seconds)"
+values reported by /usr/bin/time -v for each program.
+
+
+
+
 ### Q7: Which function consumes the most time according to the profile?
 ### Q8: Which function is called most often?
 ### Q9: Which function calls `sethi` most often
