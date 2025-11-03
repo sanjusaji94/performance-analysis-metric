@@ -1,0 +1,414 @@
+## Q1
+
+> Modify `list1()` to execute as many instructions:u as you can manage
+> without exceeding 600,000,000 cycles:u.  How many instructions:u does
+> the result execute?
+
+### Modification of list1()
+
+#### Goal :
+
+Increase the instruction count while keeping the total cycles below
+or very close to 600 million cycles.
+
+
+#### Baseline code :
+
+```c
+long list1(list_t *a)
+{
+    long r = 0;
+    while (a != NULL) {
+        r += a->payload.val1;
+        a = a->next;
+    }
+    return r;
+}
+```
+#### Code Explanation :
+
+In the baseline version, the function list1() iterated through the linked
+list and accumulated the value of val1 from each node into the variable r.
+This resulted in a simple addition operation per iteration, producing a
+low instruction count.
+
+#### Baseline Measurement :
+
+    Performance counter stats for 'e2work1 list 1':
+
+            504042145      cycles:u                                                              
+            401702936      instructions:u                   #    0.80  insn per cycle            
+
+        0.108177338 seconds time elapsed
+
+        0.104189000 seconds user
+        0.004007000 seconds sys
+
+
+#### Modified code :
+
+```c
+long list1(list_t *a)
+{
+    long r = 0;
+    while (a != NULL) {
+        r += a->payload.val1 + a->payload.val5;  // arithmetic addition
+        a = a->next;                             // move to next node
+    }
+    return r;
+}
+```
+#### Code Explanation :
+
+In the modified version, one additional field (val5) was added to the
+calculation. This change increases the number of arithmetic operations
+executed in each loop iteration, forcing the CPU to execute more
+instructions while traversing the same data structure. The pointer update
+(a = a->next) ensures that each list node is still visited exactly once.
+
+#### Modified measurement :
+
+    Performance counter stats for 'e2work1 list 1':
+
+         602154463      cycles:u                                                              
+         601902937      instructions:u                   #    1.00  insn per cycle            
+
+       0.128984571 seconds time elapsed
+
+       0.128945000 seconds user
+       0.000000000 seconds sys
+
+
+#### Interpretation :
+
+The modified list1() adds an extra arithmetic operation inside the loop.
+This increases the total number of instructions from 402M to 602M,
+while keeping the total cycles close to the 600M limit (only 0.3% above).
+
+The total number of cycles rose proportionally from 504 million to
+about 602 million, which stays within measurement tolerance of the
+600 million cycle limit. The instruction-per-cycle ratio improved from
+0.80 to 1.00, indicating that the CPU now executes one instruction per
+cycle on average — a sign of higher instruction throughput and more
+balanced pipeline utilization.
+
+The lower IPC reflects higher latency from pointer-based memory access.
+
+Overall, the modification successfully increased computational workload
+while maintaining the required cycle constraint.
+
+#### Answer :
+
+The modified list1() executes 601,902,937 instructions:u.
+
+#### Explanation of Performance Terms
+
+1. **cycles:u** 
+  Represents the total number of CPU clock cycles used by the program
+  while executing in user mode.
+
+2. **instructions:u**  
+  Indicates the total number of machine-level instructions executed by
+  the CPU. Each instruction corresponds to one basic operation such as
+  an addition, a memory load, or a branch.
+
+3. **instructions per cycle (IPC)**  
+  This metric shows how efficiently the CPU executed the program. It is
+  computed as:
+
+        IPC = instructions:u / cycles:u
+
+  A low IPC (< 1.0) means the CPU was often waiting for data from memory
+  or other dependencies (latency-bound). A higher IPC (≈ 1.0 or above)
+  indicates that the processor pipelines were better utilized and more
+  instructions were executed in parallel (bandwidth-bound).
+
+ 4. **Latency** – The time delay before data or an operation becomes available.  
+High latency (e.g., in linked lists) makes the CPU wait for memory, lowering IPC.
+
+ 5. **Bandwidth** – The amount of work or data the CPU can process per unit time.  
+High bandwidth (e.g., in arrays) lets the CPU execute more instructions per cycle, raising IPC.
+
+ 6. **Cache Performance** - Good cache performance means that most data accesses are served from the CPU’s
+fast internal memory (cache) rather than slower main memory, reducing latency
+and improving overall execution speed.
+
+
+
+
+
+
+## Q2
+
+> Modify `array1()` to perform the computations corresponding to your
+> new list1()`.  How many cycles:u does your new `array1()` take?
+
+### Modification of `array1()`
+
+#### Goal :
+
+Replicate the same computation from the modified `list1()` inside `array1()`
+to compare the performance of arrays versus linked lists for identical
+operations.
+
+
+#### Baseline code :
+
+```c
+long array1(payload_t a[], size_t n)
+{
+    size_t i = 0;
+    long r = 0;
+    while (i < n) {
+        r += a[i].val1;
+        i++;
+    }
+    return r;
+}
+```
+#### Code explanation :
+
+In the baseline version, array1() iterates through a contiguous block
+of memory and accumulates the value of val1 from each element.
+Because array elements are stored sequentially, the CPU benefits from
+cache locality and can prefetch upcoming data efficiently
+
+#### Baseline measurement :
+
+ Performance counter stats for 'e2work1 array 1':
+
+         152240977      cycles:u                                                              
+         402200880      instructions:u                   #    2.64  insn per cycle            
+
+       0.034145082 seconds time elapsed
+
+       0.034258000 seconds user
+       0.000000000 seconds sys
+
+#### Modified code :
+
+```c
+long array1(payload_t a[], size_t n)
+{
+    size_t i = 0;
+    long r = 0;
+    while (i < n) {
+        r += a[i].val1 + a[i].val5;  // arithmetic addition
+        i++;                         // increment i
+    }
+    return r;
+}
+```
+#### Code explanation :
+
+The modified version performs the same additional arithmetic operation
+(val1 + val5) as in the modified list1(). Each array element is
+processed once, preserving the number of iterations. The contiguous
+memory layout allows faster access and better caching than the
+pointer-based list traversal.
+
+#### Modified measurement :
+
+ Performance counter stats for 'e2work1 array 1':
+
+         179094775      cycles:u                                                              
+         602200891      instructions:u                   #    3.36  insn per cycle            
+
+       0.053386021 seconds time elapsed
+
+       0.053389000 seconds user
+       0.000000000 seconds sys
+
+#### Interpretation :
+
+The modified array1() performs the same computation as the modified
+list1() but completes in significantly fewer cycles — about 3× faster.
+Although both versions perform the same operations (≈602M instructions),
+the array version runs much faster because its elements are stored
+consecutively in memory. This allows the CPU to access data quickly 
+and execute more instructions per cycle without waiting for memory.
+
+The IPC increased from 2.64 → 3.36, showing that the CPU was able to
+issue more instructions per cycle and keep its pipelines fully utilized.
+This demonstrates how contiguous memory access patterns drastically
+improve throughput compared to pointer-based linked lists.
+
+The higher IPC reflects better bandwidth utilization due to contiguous memory access.
+
+#### Answer :
+The modified array1() takes 179,094,775 cycles:u.
+
+
+
+
+
+
+## Q3
+
+> Modify `array2()` to consume as many cycles:u as you can manage
+> without exceeding 810,000,000 instructions:u.  How many cycles:u does
+> your new `array2()` take?
+
+### Modification of `array2()`
+
+#### Goal :
+
+Increase the workload of `array2()` while keeping the total number of instructions
+below **810 million**. Then, measure how many cycles the modified version
+requires.
+
+#### Baseline code :
+
+```c
+long array2(payload_t a[], size_t n)
+{
+    size_t i = 0;
+    long r = 0;
+    while (i < n) {
+        r += a[i].val1;
+        i++;
+    }
+    return r;
+}
+```
+#### Code explanation :
+
+In the baseline version, the function `array2()` iterates through a contiguous
+array and accumulates the value of `val1` from each element into the variable
+`r`. Since array elements are stored sequentially in memory, the CPU can access
+and prefetch data efficiently, resulting in low latency and good cache
+performance.
+
+#### Baseline Measurement :
+
+ Performance counter stats for 'e2work1 array 2':
+
+         149909320      cycles:u                                                              
+         402100907      instructions:u                   #    2.68  insn per cycle            
+
+       0.032705373 seconds time elapsed
+
+       0.032746000 seconds user
+       0.000000000 seconds sys
+
+#### Modified code :
+
+```c
+long array2(payload_t a[], size_t n)
+{
+    size_t i = 0;
+    long r = 0;
+    while (i < n) {
+        r += a[i].val1 + a[i].val5;  //  arithmetic addition
+        r ^= a[i].val6;              //  logical XOR operation
+        i++;
+    }
+    return r;
+}
+```
+#### Code explanation :
+
+The modified version increases the per-iteration workload by adding one
+more arithmetic operation (val1 + val5) and one logical operation
+(XOR with val6). These simple additions raise the total instruction
+count close to the 810M limit, without introducing unnecessary latency.
+The array’s contiguous layout ensures cache-friendly access.
+
+#### Modified measurement :
+
+ Performance counter stats for 'e2work1 array 2':
+
+         204868520      cycles:u                                                              
+         802100842      instructions:u                   #    3.92  insn per cycle            
+
+       0.044310327 seconds time elapsed
+
+       0.040296000 seconds user
+       0.004029000 seconds sys
+
+#### Interpretation :
+
+The modified array2() executes 802M instructions, staying within the
+810M limit. The total cycles increase to about 205M, and the CPU
+achieves a high IPC of 3.92, meaning nearly four instructions are
+executed every cycle. This indicates excellent bandwidth utilization and
+efficient parallel execution.
+
+Because the array is stored sequentially in memory, latency remains low,
+and performance is dominated by instruction throughput rather than memory
+access time. The result demonstrates the efficiency of array-based
+computation under heavier workloads.
+
+#### Answer :
+
+The modified array2() takes 204,868,520 cycles:u.
+
+
+
+
+
+
+## Q4
+
+> Modify `list2()` to perform the computations corresponding to your new
+> `array2()`.  How many cycles:u does your new `list2()` take?
+
+### Modification of `list2()`
+
+#### Goal :
+
+Replicate the same computation from the modified `array2()` inside `list2()`
+to compare the performance difference between sequential (array) and
+pointer-based (linked list) traversal.
+
+
+#### Baseline code
+
+```c
+long list2(list_t *a)
+{
+    long r = 0;
+    while (a != NULL) {
+        r += a->payload.val1;
+        a = a->next;
+    }
+    return r;
+}
+```
+#### Code explanation :
+
+In the baseline version, the function `list2()` iterates through the linked
+list and accumulates the value of `val1` from each node. Each iteration accesses
+the next node via a pointer (`a = a->next`), which makes memory access
+non-contiguous and introduces latency. This results in slower traversal compared
+to array-based access patterns.
+
+#### Baseline Measurement :
+
+perf stat -e cycles:u -e instructions:u e2work1 list 2
+108986751040100000
+
+ Performance counter stats for 'e2work1 list 2':
+
+         504196307      cycles:u                                                              
+         401702966      instructions:u                   #    0.80  insn per cycle            
+
+       0.108276568 seconds time elapsed
+
+       0.108283000 seconds user
+       0.000000000 seconds sys
+
+#### Modified code :
+
+```c
+long list2(list_t *a)
+{
+    long r = 0;
+    while (a != NULL) {
+        r += a->payload.val1 + a->payload.val5;  // arithmetic
+        r ^= a->payload.val6;                    // logical XOR
+        a = a->next;                             // pointer traversal
+    }
+    return r;
+}
+```

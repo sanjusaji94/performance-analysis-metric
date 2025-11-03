@@ -1,0 +1,62 @@
+Script started on 2025-11-03 21:59:47+01:00 [TERM="xterm-256color" TTY="/dev/pts/7" COLUMNS="83" LINES="12"]
+[?2004h[ep12435347:~/Exercises/12435347/2:398] make
+[?2004lperf stat -e cycles:u -e instructions:u e2work1 array 1
+218858991593800000
+
+ Performance counter stats for 'e2work1 array 1':
+
+         179055956      cycles:u                                                              
+         602200883      instructions:u                   #    3.36  insn per cycle            
+
+       0.042031841 seconds time elapsed
+
+       0.042027000 seconds user
+       0.000000000 seconds sys
+
+
+perf stat -e cycles:u -e instructions:u e2work1 array 2
+-7728164355100000
+
+ Performance counter stats for 'e2work1 array 2':
+
+         204868520      cycles:u                                                              
+         802100842      instructions:u                   #    3.92  insn per cycle            
+
+       0.044310327 seconds time elapsed
+
+       0.040296000 seconds user
+       0.004029000 seconds sys
+
+
+perf stat -e cycles:u -e instructions:u e2work1 list 1
+218858991593800000
+
+ Performance counter stats for 'e2work1 list 1':
+
+         602304786      cycles:u                                                              
+         601902940      instructions:u                   #    1.00  insn per cycle            
+
+       0.129060009 seconds time elapsed
+
+       0.129099000 seconds user
+       0.000000000 seconds sys
+
+
+perf stat -e cycles:u -e instructions:u e2work1 list 2
+108986751040100000
+
+ Performance counter stats for 'e2work1 list 2':
+
+         503724638      cycles:u                                                              
+         401602954      instructions:u                   #    0.80  insn per cycle            
+
+       0.107925862 seconds time elapsed
+
+       0.108008000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/2:399] exit
+[?2004lexit
+
+Script done on 2025-11-03 21:59:54+01:00 [COMMAND_EXIT_CODE="0"]
