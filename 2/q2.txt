@@ -1,6 +1,7 @@
 Script started on 2025-11-03 20:33:31+01:00 [TERM="xterm-256color" TTY="/dev/pts/79" COLUMNS="83" LINES="12"]
 [?2004h[ep12435347:~/Exercises/12435347/2:398] make
-[?2004lgcc -O -Wall -fwrapv -march=rocketlake   -c -o e2work1.o e2work1.c
+[?2004l
+gcc -O -Wall -fwrapv -march=rocketlake   -c -o e2work1.o e2work1.c
 gcc   e2work1.o e2main1.o   -o e2work1
 perf stat -e cycles:u -e instructions:u e2work1 array 1
 218858991593800000
@@ -58,346 +59,4 @@ perf stat -e cycles:u -e instructions:u e2work1 list 2
        0.000000000 seconds sys
 
 
-[?2004h[ep12435347:~/Exercises/12435347/2:399] make
-[?2004lgcc -O -Wall -fwrapv -march=rocketlake   -c -o e2work1.o e2work1.c
-gcc   e2work1.o e2main1.o   -o e2work1
-perf stat -e cycles:u -e instructions:u e2work1 array 1
-218858991593800000
-
- Performance counter stats for 'e2work1 array 1':
-
-         180912896      cycles:u                                                              
-         602200902      instructions:u                   #    3.33  insn per cycle            
-
-       0.055723938 seconds time elapsed
-
-       0.055750000 seconds user
-       0.000000000 seconds sys
-
-
-perf stat -e cycles:u -e instructions:u e2work1 array 2
-216214123823700000
-
- Performance counter stats for 'e2work1 array 2':
-
-         319337801      cycles:u                                                              
-        1202500920      instructions:u                   #    3.77  insn per cycle            
-
-       0.068798932 seconds time elapsed
-
-       0.068801000 seconds user
-       0.000000000 seconds sys
-
-
-perf stat -e cycles:u -e instructions:u e2work1 list 1
-218858991593800000
-
- Performance counter stats for 'e2work1 list 1':
-
-         603281739      cycles:u                                                              
-         601902944      instructions:u                   #    1.00  insn per cycle            
-
-       0.129192149 seconds time elapsed
-
-       0.125317000 seconds user
-       0.003916000 seconds sys
-
-
-perf stat -e cycles:u -e instructions:u e2work1 list 2
-108986751040100000
-
- Performance counter stats for 'e2work1 list 2':
-
-         503273544      cycles:u                                                              
-         401502953      instructions:u                   #    0.80  insn per cycle            
-
-       0.108002616 seconds time elapsed
-
-       0.107980000 seconds user
-       0.000000000 seconds sys
-
-
-[?2004h[ep12435347:~/Exercises/12435347/2:400] ^C[?2004l[?2004h[?2004l
-[?2004h[ep12435347:~/Exercises/12435347/2:400] make
-[?2004lgcc -O -Wall -fwrapv -march=rocketlake   -c -o e2work1.o e2work1.c
-gcc   e2work1.o e2main1.o   -o e2work1
-perf stat -e cycles:u -e instructions:u e2work1 array 1
-218858991593800000
-
- Performance counter stats for 'e2work1 array 1':
-
-         179947258      cycles:u                                                              
-         602200889      instructions:u                   #    3.35  insn per cycle            
-
-       0.057055856 seconds time elapsed
-
-       0.057094000 seconds user
-       0.000000000 seconds sys
-
-
-perf stat -e cycles:u -e instructions:u e2work1 array 2
--7728164355100000
-
- Performance counter stats for 'e2work1 array 2':
-
-         204729083      cycles:u                                                              
-         802100858      instructions:u                   #    3.92  insn per cycle            
-
-       0.046673541 seconds time elapsed
-
-       0.046651000 seconds user
-       0.000000000 seconds sys
-
-
-perf stat -e cycles:u -e instructions:u e2work1 list 1
-218858991593800000
-
- Performance counter stats for 'e2work1 list 1':
-
-         602172791      cycles:u                                                              
-         601902938      instructions:u                   #    1.00  insn per cycle            
-
-       0.130818232 seconds time elapsed
-
-       0.130822000 seconds user
-       0.000000000 seconds sys
-
-
-perf stat -e cycles:u -e instructions:u e2work1 list 2
-108986751040100000
-
- Performance counter stats for 'e2work1 list 2':
-
-         503758607      cycles:u                                                              
-         401602953      instructions:u                   #    0.80  insn per cycle            
-
-       0.107964185 seconds time elapsed
-
-       0.107972000 seconds user
-       0.000000000 seconds sys
-
-
-[?2004h[ep12435347:~/Exercises/12435347/2:401] script -f q3.txt
-[?2004lScript started, output log file is 'q3.txt'.
-[?2004h[ep12435347:~/Exercises/12435347/2:398] make
-[?2004lperf stat -e cycles:u -e instructions:u e2work1 array 1
-218858991593800000
-
- Performance counter stats for 'e2work1 array 1':
-
-         179055956      cycles:u                                                              
-         602200883      instructions:u                   #    3.36  insn per cycle            
-
-       0.042031841 seconds time elapsed
-
-       0.042027000 seconds user
-       0.000000000 seconds sys
-
-
-perf stat -e cycles:u -e instructions:u e2work1 array 2
--7728164355100000
-
- Performance counter stats for 'e2work1 array 2':
-
-         204868520      cycles:u                                                              
-         802100842      instructions:u                   #    3.92  insn per cycle            
-
-       0.044310327 seconds time elapsed
-
-       0.040296000 seconds user
-       0.004029000 seconds sys
-
-
-perf stat -e cycles:u -e instructions:u e2work1 list 1
-218858991593800000
-
- Performance counter stats for 'e2work1 list 1':
-
-         602304786      cycles:u                                                              
-         601902940      instructions:u                   #    1.00  insn per cycle            
-
-       0.129060009 seconds time elapsed
-
-       0.129099000 seconds user
-       0.000000000 seconds sys
-
-
-perf stat -e cycles:u -e instructions:u e2work1 list 2
-108986751040100000
-
- Performance counter stats for 'e2work1 list 2':
-
-         503724638      cycles:u                                                              
-         401602954      instructions:u                   #    0.80  insn per cycle            
-
-       0.107925862 seconds time elapsed
-
-       0.108008000 seconds user
-       0.000000000 seconds sys
-
-
-[?2004h[ep12435347:~/Exercises/12435347/2:399] exit
-[?2004lexit
-Script done.
-[?2004h[ep12435347:~/Exercises/12435347/2:402] make
-[?2004lgcc -O -Wall -fwrapv -march=rocketlake   -c -o e2work1.o e2work1.c
-gcc   e2work1.o e2main1.o   -o e2work1
-perf stat -e cycles:u -e instructions:u e2work1 array 1
-218858991593800000
-
- Performance counter stats for 'e2work1 array 1':
-
-         180913994      cycles:u                                                              
-         602200882      instructions:u                   #    3.33  insn per cycle            
-
-       0.043541863 seconds time elapsed
-
-       0.043547000 seconds user
-       0.000000000 seconds sys
-
-
-perf stat -e cycles:u -e instructions:u e2work1 array 2
--7728164355100000
-
- Performance counter stats for 'e2work1 array 2':
-
-         204505078      cycles:u                                                              
-         802100847      instructions:u                   #    3.92  insn per cycle            
-
-       0.044216014 seconds time elapsed
-
-       0.044237000 seconds user
-       0.000000000 seconds sys
-
-
-perf stat -e cycles:u -e instructions:u e2work1 list 1
-218858991593800000
-
- Performance counter stats for 'e2work1 list 1':
-
-         602806820      cycles:u                                                              
-         601902937      instructions:u                   #    1.00  insn per cycle            
-
-       0.129120992 seconds time elapsed
-
-       0.129113000 seconds user
-       0.000000000 seconds sys
-
-
-perf stat -e cycles:u -e instructions:u e2work1 list 2
--7728164355100000
-
- Performance counter stats for 'e2work1 list 2':
-
-         603331539      cycles:u                                                              
-         801702894      instructions:u                   #    1.33  insn per cycle            
-
-       0.129288722 seconds time elapsed
-
-       0.129292000 seconds user
-       0.000000000 seconds sys
-
-
-[?2004h[ep12435347:~/Exercises/12435347/2:403] scipt[K[K[Kript -f g4[K[K[K q4.txt
-[?2004lScript started, output log file is 'q4.txt'.
-[?2004h[ep12435347:~/Exercises/12435347/2:400] makl[Ke
-[?2004lperf stat -e cycles:u -e instructions:u e2work1 array 1
-218858991593800000
-
- Performance counter stats for 'e2work1 array 1':
-
-         179605367      cycles:u                                                              
-         602200894      instructions:u                   #    3.35  insn per cycle            
-
-       0.043008226 seconds time elapsed
-
-       0.043042000 seconds user
-       0.000000000 seconds sys
-
-
-perf stat -e cycles:u -e instructions:u e2work1 array 2
--7728164355100000
-
- Performance counter stats for 'e2work1 array 2':
-
-         204382224      cycles:u                                                              
-         802100843      instructions:u                   #    3.92  insn per cycle            
-
-       0.044256295 seconds time elapsed
-
-       0.044276000 seconds user
-       0.000000000 seconds sys
-
-
-perf stat -e cycles:u -e instructions:u e2work1 list 1
-218858991593800000
-
- Performance counter stats for 'e2work1 list 1':
-
-         602392892      cycles:u                                                              
-         601902956      instructions:u                   #    1.00  insn per cycle            
-
-       0.129144674 seconds time elapsed
-
-       0.129118000 seconds user
-       0.000000000 seconds sys
-
-
-perf stat -e cycles:u -e instructions:u e2work1 list 2
--7728164355100000
-
- Performance counter stats for 'e2work1 list 2':
-
-         603420000      cycles:u                                                              
-         801702896      instructions:u                   #    1.33  insn per cycle            
-
-       0.129316654 seconds time elapsed
-
-       0.129270000 seconds user
-       0.000000000 seconds sys
-
-
-[?2004h[ep12435347:~/Exercises/12435347/2:401] exit
-[?2004lexit
-Script done.
-[?2004h[ep12435347:~/Exercises/12435347/2:404] git ass[K[Kdd .
-[?2004l[?2004h[ep12435347:~/Exercises/12435347/2:405] git commit _[K-m "So_far"
-[?2004l[main 1109f2b] So_far
- Committer: EP2025 12435347 <ep12435347@g0.complang.tuwien.ac.at>
-Your name and email address were configured automatically based
-on your username and hostname. Please check that they are accurate.
-You can suppress this message by setting them explicitly. Run the
-following command and follow the instructions in your editor to edit
-your configuration file:
-
-    git config --global --edit
-
-After doing this, you may fix the identity used for this commit with:
-
-    git commit --amend --reset-author
-
- 13 files changed, 1552 insertions(+)
- create mode 100644 2/Exercises2.txt
- create mode 100644 2/Makefile
- create mode 100644 2/baseline.txt
- create mode 100644 2/e2main1.c
- create mode 100644 2/e2main1.o
- create mode 100755 2/e2work1
- create mode 100644 2/e2work1.c
- create mode 100644 2/e2work1.h
- create mode 100644 2/e2work1.o
- create mode 100644 2/q1.txt
- create mode 100644 2/q2.txt
- create mode 100644 2/q3.txt
- create mode 100644 2/q4.txt
-[?2004h[ep12435347:~/Exercises/12435347/2:406] git push
-[?2004lEnumerating objects: 17, done.
-Counting objects:   5% (1/17)Counting objects:  11% (2/17)Counting objects:  17% (3/17)Counting objects:  23% (4/17)Counting objects:  29% (5/17)Counting objects:  35% (6/17)Counting objects:  41% (7/17)Counting objects:  47% (8/17)Counting objects:  52% (9/17)Counting objects:  58% (10/17)Counting objects:  64% (11/17)Counting objects:  70% (12/17)Counting objects:  76% (13/17)Counting objects:  82% (14/17)Counting objects:  88% (15/17)Counting objects:  94% (16/17)Counting objects: 100% (17/17)Counting objects: 100% (17/17), done.
-Delta compression using up to 8 threads
-Compressing objects:   6% (1/16)Compressing objects:  12% (2/16)Compressing objects:  18% (3/16)Compressing objects:  25% (4/16)Compressing objects:  31% (5/16)Compressing objects:  37% (6/16)Compressing objects:  43% (7/16)Compressing objects:  50% (8/16)Compressing objects:  56% (9/16)Compressing objects:  62% (10/16)Compressing objects:  68% (11/16)Compressing objects:  75% (12/16)Compressing objects:  81% (13/16)Compressing objects:  87% (14/16)Compressing objects:  93% (15/16)Compressing objects: 100% (16/16)Compressing objects: 100% (16/16), done.
-Writing objects:   6% (1/16)Writing objects:  12% (2/16)Writing objects:  18% (3/16)Writing objects:  25% (4/16)Writing objects:  31% (5/16)Writing objects:  37% (6/16)Writing objects:  43% (7/16)Writing objects:  50% (8/16)Writing objects:  56% (9/16)Writing objects:  62% (10/16)Writing objects:  68% (11/16)Writing objects:  75% (12/16)Writing objects:  87% (14/16)Writing objects: 100% (16/16)Writing objects: 100% (16/16), 12.73 KiB | 12.73 MiB/s, done.
-Total 16 (delta 4), reused 0 (delta 0), pack-reused 0 (from 0)
-To b3.complang.tuwien.ac.at:ep/2025w/12435347.git
-   51c0f9f..1109f2b  main -> main
-[?2004h[ep12435347:~/Exercises/12435347/2:407] git add .
-[?2004l
+Script done on 2025-11-03 23:47:23+01:00 [COMMAND_EXIT_CODE="0"]
