@@ -385,9 +385,6 @@ to array-based access patterns.
 
 #### Baseline Measurement :
 
-perf stat -e cycles:u -e instructions:u e2work1 list 2
-108986751040100000
-
  Performance counter stats for 'e2work1 list 2':
 
          504196307      cycles:u                                                              
@@ -412,3 +409,33 @@ long list2(list_t *a)
     return r;
 }
 ```
+#### Code Explanation :
+
+This mirrors the computation of the modified array2(): one extra arithmetic
+term and one XOR per node. Each node is still visited exactly once; only the
+work inside the loop body changed.
+
+#### Modified measurement :
+
+ Performance counter stats for 'e2work1 list 2':
+
+         603420000      cycles:u                                                              
+         801702896      instructions:u                   #    1.33  insn per cycle            
+
+       0.129316654 seconds time elapsed
+
+       0.129270000 seconds user
+       0.000000000 seconds sys
+
+#### Interpretation :
+
+list2() performs essentially the same workload as array2() (≈802M
+instructions) but needs ~603M cycles versus ~205M cycles for array2()
+(from Q3). The IPC is much lower (1.33 vs 3.92), showing that linked
+list traversal is latency-bound (pointer chasing causes frequent memory
+waits), while the array version is bandwidth-efficient (contiguous memory
+keeps pipelines busy).
+
+#### Answer :
+
+The modified list2() takes 603,420,000 cycles:u.

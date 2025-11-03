@@ -361,4 +361,43 @@ perf stat -e cycles:u -e instructions:u e2work1 list 2
 [?2004lexit
 Script done.
 [?2004h[ep12435347:~/Exercises/12435347/2:404] git ass[K[Kdd .
+[?2004l[?2004h[ep12435347:~/Exercises/12435347/2:405] git commit _[K-m "So_far"
+[?2004l[main 1109f2b] So_far
+ Committer: EP2025 12435347 <ep12435347@g0.complang.tuwien.ac.at>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 13 files changed, 1552 insertions(+)
+ create mode 100644 2/Exercises2.txt
+ create mode 100644 2/Makefile
+ create mode 100644 2/baseline.txt
+ create mode 100644 2/e2main1.c
+ create mode 100644 2/e2main1.o
+ create mode 100755 2/e2work1
+ create mode 100644 2/e2work1.c
+ create mode 100644 2/e2work1.h
+ create mode 100644 2/e2work1.o
+ create mode 100644 2/q1.txt
+ create mode 100644 2/q2.txt
+ create mode 100644 2/q3.txt
+ create mode 100644 2/q4.txt
+[?2004h[ep12435347:~/Exercises/12435347/2:406] git push
+[?2004lEnumerating objects: 17, done.
+Counting objects:   5% (1/17)Counting objects:  11% (2/17)Counting objects:  17% (3/17)Counting objects:  23% (4/17)Counting objects:  29% (5/17)Counting objects:  35% (6/17)Counting objects:  41% (7/17)Counting objects:  47% (8/17)Counting objects:  52% (9/17)Counting objects:  58% (10/17)Counting objects:  64% (11/17)Counting objects:  70% (12/17)Counting objects:  76% (13/17)Counting objects:  82% (14/17)Counting objects:  88% (15/17)Counting objects:  94% (16/17)Counting objects: 100% (17/17)Counting objects: 100% (17/17), done.
+Delta compression using up to 8 threads
+Compressing objects:   6% (1/16)Compressing objects:  12% (2/16)Compressing objects:  18% (3/16)Compressing objects:  25% (4/16)Compressing objects:  31% (5/16)Compressing objects:  37% (6/16)Compressing objects:  43% (7/16)Compressing objects:  50% (8/16)Compressing objects:  56% (9/16)Compressing objects:  62% (10/16)Compressing objects:  68% (11/16)Compressing objects:  75% (12/16)Compressing objects:  81% (13/16)Compressing objects:  87% (14/16)Compressing objects:  93% (15/16)Compressing objects: 100% (16/16)Compressing objects: 100% (16/16), done.
+Writing objects:   6% (1/16)Writing objects:  12% (2/16)Writing objects:  18% (3/16)Writing objects:  25% (4/16)Writing objects:  31% (5/16)Writing objects:  37% (6/16)Writing objects:  43% (7/16)Writing objects:  50% (8/16)Writing objects:  56% (9/16)Writing objects:  62% (10/16)Writing objects:  68% (11/16)Writing objects:  75% (12/16)Writing objects:  87% (14/16)Writing objects: 100% (16/16)Writing objects: 100% (16/16), 12.73 KiB | 12.73 MiB/s, done.
+Total 16 (delta 4), reused 0 (delta 0), pack-reused 0 (from 0)
+To b3.complang.tuwien.ac.at:ep/2025w/12435347.git
+   51c0f9f..1109f2b  main -> main
+[?2004h[ep12435347:~/Exercises/12435347/2:407] git add .
 [?2004l
