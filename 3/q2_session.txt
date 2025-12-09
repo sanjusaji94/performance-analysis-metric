@@ -1,0 +1,102 @@
+Script started on 2025-12-09 20:28:18+01:00 [TERM="xterm-256color" TTY="/dev/pts/15" COLUMNS="122" LINES="12"]
+[?2004h[ep12435347:~/Exercises/12435347/3:498] [7mLC_NUMERIC=prog perf stat -e L1-dcache-load-misses \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 5000 8[27m[ALC_NUMERIC=prog perf stat -e L1-dcache-load-misses \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 5000 8
+[?2004lsize: 40000, offsets at 0x0 0x8 0x10 0x18 ...
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 5000 8':
+
+     <not counted>      L1-dcache-load-misses                                                   (0.00%)
+
+       0.110628658 seconds time elapsed
+
+       0.109948000 seconds user
+       0.000000000 seconds sys
+
+
+Some events weren't counted. Try disabling the NMI watchdog:
+	echo 0 > /proc/sys/kernel/nmi_watchdog
+	perf stat ...
+	echo 1 > /proc/sys/kernel/nmi_watchdog
+[?2004h[ep12435347:~/Exercises/12435347/3:499] [7mLC_NUMERIC=prog perf stat -e L1-dcache-load-misses \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 10000 8[27m[ALC_NUMERIC=prog perf stat -e L1-dcache-load-misses \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 10000 8
+[?2004lsize: 80000, offsets at 0x0 0x8 0x10 0x18 ...
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 10000 8':
+
+     <not counted>      L1-dcache-load-misses                                                   (0.00%)
+
+       0.123942014 seconds time elapsed
+
+       0.118600000 seconds user
+       0.003953000 seconds sys
+
+
+Some events weren't counted. Try disabling the NMI watchdog:
+	echo 0 > /proc/sys/kernel/nmi_watchdog
+	perf stat ...
+	echo 1 > /proc/sys/kernel/nmi_watchdog
+[?2004h[ep12435347:~/Exercises/12435347/3:500] [7mLC_NUMERIC=prog perf stat -e L1-dcache-load-misses \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 20000 8[27m
+[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[CLC_NUMERIC=prog perf stat -e L1-dcache-load-misses \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 20000 8
+[A
+[?2004lsize: 160000, offsets at 0x0 0x8 0x10 0x18 ...
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 20000 8':
+
+     <not counted>      L1-dcache-load-misses                                                   (0.00%)
+
+       0.108900994 seconds time elapsed
+
+       0.108026000 seconds user
+       0.000000000 seconds sys
+
+
+Some events weren't counted. Try disabling the NMI watchdog:
+	echo 0 > /proc/sys/kernel/nmi_watchdog
+	perf stat ...
+	echo 1 > /proc/sys/kernel/nmi_watchdog
+[?2004h[ep12435347:~/Exercises/12435347/3:501] [7mLC_NUMERIC=prog perf stat -e L1-dcache-load-misses \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 40000 8[27m[ALC_NUMERIC=prog perf stat -e L1-dcache-load-misses \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 40000 8
+[?2004lsize: 320000, offsets at 0x0 0x8 0x10 0x18 ...
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 40000 8':
+
+     <not counted>      L1-dcache-load-misses                                                   (0.00%)
+
+       0.113304487 seconds time elapsed
+
+       0.108647000 seconds user
+       0.004023000 seconds sys
+
+
+Some events weren't counted. Try disabling the NMI watchdog:
+	echo 0 > /proc/sys/kernel/nmi_watchdog
+	perf stat ...
+	echo 1 > /proc/sys/kernel/nmi_watchdog
+[?2004h[ep12435347:~/Exercises/12435347/3:502] [7mLC_NUMERIC=prog perf stat -e L1-dcache-load-misses \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 80000 8[27m[ALC_NUMERIC=prog perf stat -e L1-dcache-load-misses \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 80000 8
+[?2004lsize: 640000, offsets at 0x0 0x8 0x10 0x18 ...
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 80000 8':
+
+     <not counted>      L1-dcache-load-misses                                                   (0.00%)
+
+       0.122657081 seconds time elapsed
+
+       0.117891000 seconds user
+       0.004065000 seconds sys
+
+
+Some events weren't counted. Try disabling the NMI watchdog:
+	echo 0 > /proc/sys/kernel/nmi_watchdog
+	perf stat ...
+	echo 1 > /proc/sys/kernel/nmi_watchdog
+[?2004h[ep12435347:~/Exercises/12435347/3:503] exit
+[?2004lexit
+
+Script done on 2025-12-09 20:29:25+01:00 [COMMAND_EXIT_CODE="0"]

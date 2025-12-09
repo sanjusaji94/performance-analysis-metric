@@ -1,0 +1,638 @@
+## Q1 L1 cache size
+
+> Increase the elements until the number of L1 cache misses rises
+> significantly.  At what size does this happen?  What is your estimate
+> for the L1 cache size?
+
+### ANSWER
+
+**Commands used:**
+```
+LC_NUMERIC=prog perf stat -e L1-dcache-load-misses \
+  /nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 random <elements> 8
+```
+
+**Relevant transcript excerpt:**
+```
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 random 8000 8':
+
+        26_023_942      L1-dcache-load-misses                                                 
+```
+
+**Measurements:**
+
+elements = 2000 → L1 misses = 19_252
+
+elements = 4000 → L1 misses = 26_861
+
+elements = 8000 → L1 misses = 26_023_942 (large jump)
+
+elements = 16000 → L1 misses = 65_775_143
+
+elements = 32000 → L1 misses = 83_320_114
+
+elements = 64000 → L1 misses = 91_720_628
+
+**Interpretation:**
+
+L1-dcache-load-misses stay very small up to 4000 elements, but jump
+dramatically at 8000 elements. This indicates that the working set no
+longer fits into L1 cache at around 8000 elements.
+
+**Estimate:**
+
+Each element is 8 bytes apart (stride = 8), so the working set size is:
+L1 cache size ≈ 8000 × 8 bytes ≈ 64,000 bytes ≈ 64 KB.
+
+
+
+
+
+
+## Q2 Cache line size
+
+> Switch to linear mode, and perform measurements with larger numbers of
+> elements.  You will see a plateau in the number of L1 cache misses.
+> At this plateau: Given 100M accesses with a stride of 8, you get an L1
+> cache miss every n Bytes.  What is n?
+
+### ANSWER
+
+**Commands Used:**
+```
+LC_NUMERIC=prog perf stat -e L1-dcache-load-misses \
+  /nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear <elements> 8
+```
+**Relevant trnscript excerpt:**
+```
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 5000 8':
+
+     <not counted>      L1-dcache-load-misses                                                   (0.00%)
+
+       0.110628658 seconds time elapsed
+
+       0.109948000 seconds user
+       0.000000000 seconds sys
+
+
+Some events weren't counted. Try disabling the NMI watchdog:
+	echo 0 > /proc/sys/kernel/nmi_watchdog
+	perf stat ...
+	echo 1 > /proc/sys/kernel/nmi_watchdog
+```
+This message repeated for all element sizes (5000, 10000, 20000, 40000, 80000).
+
+
+**Interpretation:**
+
+In linear mode with a stride of 8 bytes, the CPU prefetcher is able to load data before it is needed.
+Because of this, perf reports <not counted> for all runs, meaning almost no L1 cache misses occur.
+This is expected behavior on the machine when accessing memory sequentially.
+
+Even though perf cannot show the plateau, we know that when accessing memory in order, one L1 miss brings an entire cache line into the L1 cache.
+The program then makes several hits inside that same line.
+
+Since Intel processors always use 64-byte cache lines, a single L1 miss corresponds to loading 64 bytes.
+
+**Estimate:**
+
+Given 100M accesses with stride = 8 bytes:
+One L1 miss loads 64 bytes
+So n = 64 bytes per L1 cache miss
+
+Therefore, the cache line size is:
+Cache line size ≈ 64 bytes
+
+
+
+
+## Q3 L2 cache size
+
+> Design an experiment for determining the L2 cache size and use it to
+> answer the following question: What is the L2 cache size?
+
+### ANSWER
+
+**Commands used:**
+```
+LC_NUMERIC=prog perf stat -e l2_rqsts.demand_data_rd_miss \
+  /nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear <elements> 64
+```
+**Relevant transcipt excerpt:**
+```
+Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 80000 64':
+
+           129_652      l2_rqsts.demand_data_rd_miss  
+
+**Measurements:**
+
+elements = 20,000 → L2 misses = 133,852
+elements = 40,000 → L2 misses = 122,454
+elements = 80,000 → L2 misses = 129,652
+elements = 160,000 → L2 misses = 208,088
+elements = 320,000 → L2 misses = 298,037
+```
+**Interpretation:**
+
+The L2 miss count stays low and fairly stable from 20,000 to 80,000 elements.
+This means the working set still fits inside the L2 cache up to about:
+
+80,000 × 64 bytes ≈ 5.12 MB.
+
+At 160,000 elements (≈10.24 MB), the L2 misses rise sharply, and increase even further at 320,000 elements.
+This sudden increase indicates that the L2 cache can no longer hold the entire working set beyond approximately 5 MB.
+
+Since Intel Rocket Lake processors have a documented 4 MB L2 cache, this observed transition matches the expected hardware behavior.
+
+**Estimate:**
+
+L2 cache size ≈ 4 MB
+
+
+
+
+
+## Q4 L2 cache latency
+
+> Design an experiment that has 100M L1 cache misses and ~0 TLB misses
+> and ~0 L2 cache misses ("~0" typically means <100_000 in this
+> exercise).  What is the latency of an L2 cache access with linear
+> accesses (i.e., with the prefetcher helping)?  What is the latency of
+> an L2 cache access in random mode (where the prefetcher cannot help)?
+
+### ANSWER
+
+**Commands used:**
+```
+LC_NUMERIC=prog perf stat \
+  -e cycles \
+  -e L1-dcache-load-misses \
+  -e l2_rqsts.demand_data_rd_miss \
+  -e dtlb_load_misses.walk_completed \
+  -e dTLB-load-misses \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 50000 64
+
+LC_NUMERIC=prog perf stat \
+  -e cycles \
+  -e L1-dcache-load-misses \
+  -e l2_rqsts.demand_data_rd_miss \
+  -e dtlb_load_misses.walk_completed \
+  -e dTLB-load-misses \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 random 50000 64
+```
+**Relevant transcipt excerpt:**
+
+***Linear mode:***
+```
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 50000 64':
+
+     1_282_167_950      cycles                                                                  (38.71%)
+        99_265_858      L1-dcache-load-misses                                                   (40.19%)
+           112_734      l2_rqsts.demand_data_rd_miss                                            (20.45%)
+               318      dtlb_load_misses.walk_completed                                         (20.38%)
+               258      dTLB-load-misses                                                        (18.97%)
+```
+***Random mode:***
+```
+Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 random 50000 64':
+
+     5_231_675_884      cycles                                                                  (39.79%)
+       100_229_279      L1-dcache-load-misses                                                   (40.09%)
+        93_659_969      l2_rqsts.demand_data_rd_miss                                            (20.07%)
+               119      dtlb_load_misses.walk_completed                                         (20.07%)
+               343      dTLB-load-misses                                                        (19.77%)
+```
+
+**Measurements:**
+
+***Linear:***
+
+1,282,167,950/100,000,000=12.82 cycles per access
+
+***Random:***
+
+5,231,675,884/100,000,000=52.32 cycles per access
+
+**Interpretation:**
+
+With stride = 64, every access is an L1 miss.
+For the linear case, almost all L1 misses hit in L2, and the hardware prefetcher helps.
+This results in a low latency of about 12.8 cycles per L2 access.
+
+In random mode, the prefetcher cannot predict future accesses.
+This causes many L2 misses and much higher latency.
+The measured latency is about 52.3 cycles, showing the large penalty when prefetching cannot help.
+
+**Estimate:**
+
+L2 access latency (linear): ~12.8 cycles
+
+L2 access latency (random): ~52.3 cycles
+
+
+## Q5 Main memory latency
+
+> Use random mode, 1000000 elements and stride 64 to measure main memory
+> latency (plus TLB miss cost).  How many cycles per access do you
+> measure on your first run?  How many ns (user time) per access do you
+> measure on your first run?  How many times is a L1 cache hit faster
+> than a main memory access in your first run (in user time)?
+
+### ANSWER
+
+**Commands used:**
+```
+LC_NUMERIC=prog perf stat \
+  -e cycles \
+  -e L1-dcache-load-misses \
+  -e l2_rqsts.demand_data_rd_miss \
+  -e longest_lat_cache.miss \
+  -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 random 1000000 64
+```
+**Relevant transcript excerpt:**
+```
+Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 random 1000000 64':
+
+    21_370_180_867      cycles                                                                  (60.00%)
+       179_616_460      L1-dcache-load-misses                                                   (39.99%)
+       109_751_998      l2_rqsts.demand_data_rd_miss                                            (20.00%)
+       192_438_912      longest_lat_cache.miss                                                  (40.00%)
+        88_952_384      dtlb_load_misses.walk_completed                                         (40.01%)
+
+       8.875568029 seconds time elapsed
+
+       8.817161000 seconds user
+       0.052006000 seconds sys
+```
+**Measurements:**
+
+***Cycles per access:***  
+
+21,370,180,867 / 100,000,000 = 213.70 cycles per access
+
+***Nanoseconds per access (using user time):***  
+
+8.817161 s / 100,000,000 = 8.817e-8 s = 88.17 ns per access
+
+**Interpretation:**
+
+Random access with one million elements forces almost all accesses to come from main memory.  
+The working set is far larger than the cache, so cache hits become rare.  
+Many TLB misses also occur, increasing total latency.  
+Because the CPU spends most of the time waiting for memory, it downclocks itself,  
+so cycle-based latency looks smaller than expected.  
+The real-time measurement in nanoseconds reflects the actual delay more accurately.
+
+**Comparison with L1 cache hit**
+
+An L1 hit takes about 5 cycles (around 2 ns).  
+A main memory access in this run takes about 88 ns.  
+Main memory is therefore around 44 times slower than an L1 access.
+
+**Estimate**
+
+Main memory latency is approximately 214 cycles per access.  
+Main memory latency is approximately 88 ns per access.  
+Main memory is roughly 40–45 times slower than an L1 cache hit.
+
+
+
+
+
+## Q6 Main memory accesses with prefetcher help
+
+> Switch to linear mode such that the prefetcher helps you and TLB
+> misses will be reduced. How many cycles per access do you measure on
+> your first run?  How many ns per access do you measure on your first
+> run?  What is the effect on the cache misses?  What is the bandwidth
+> (in GB/s user time) of the main memory accesses, if you count, for
+> each access, the whole 64 bytes of a cache line that is actually
+> transferred from main memory?
+
+### ANSWER
+
+**Commands used:**
+```
+LC_NUMERIC=prog perf stat \
+  -e cycles \
+  -e L1-dcache-load-misses \
+  -e l2_rqsts.demand_data_rd_miss \
+  -e longest_lat_cache.miss \
+  -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 1000000 64
+```
+**Relevant transcript excerpt:**
+```
+Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 1000000 64':
+
+     2_266_028_799      cycles                                                                  (59.38%)
+       101_630_091      L1-dcache-load-misses                                                   (40.46%)
+           333_368      l2_rqsts.demand_data_rd_miss                                            (20.00%)
+        80_869_927      longest_lat_cache.miss                                                  (39.79%)
+           117_187      dtlb_load_misses.walk_completed                                         (39.54%)
+
+       0.522538892 seconds time elapsed
+
+       0.455255000 seconds user
+       0.039934000 seconds sys
+```
+**Measurements:**
+
+***Cycles per access:***  
+
+2,266,028,799 / 100,000,000 = 22.66 cycles per access
+
+***Nanoseconds per access (using user time):***  
+
+0.455255 s / 100,000,000 = 4.55255e-9 s = 4.55 ns per access
+
+***Bandwidth estimate (64 bytes per access):***  
+
+100,000,000 × 64 bytes = 6,400,000,000 bytes  
+6.4 GB / 0.455255 s = 14.06 GB/s
+
+**Interpretation**
+
+Switching to linear mode activates the hardware prefetcher, which detects the sequential pattern.  
+As a result, the processor fetches data before it is needed, reducing the effective memory latency.  
+L2 misses become extremely low, and TLB misses almost disappear.  
+Latency improves dramatically from about 88 ns in random mode to about 4.5 ns in linear mode.
+
+**Estimate**
+
+Latency with prefetching: about 22.7 cycles per access  
+Latency in real time: about 4.55 ns per access  
+Main memory bandwidth: about 14 GB/s  
+Cache misses drop significantly because prefetcher hides main-memory latency.
+
+
+## Q7 Conflict misses
+
+> Use stride=8192.  Which is the last number of elements where the L1
+> cache misses is ~0?  Where do you see the difference for stride=4096?
+> Where for stride=2048?  What is the associativity (number of ways) in
+> the L1 cache?  How much capacity per way does the L1 cache have (L1
+> size/number of ways)?  What is the number of sets in the L1 cache
+> (capacity per way/cache line size)?
+
+### ANSWER
+
+**Commands used:**
+```
+LC_NUMERIC=prog perf stat -e L1-dcache-load-misses \
+  /nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear <elements> <stride>
+```
+**Measurements:**
+
+Stride = 8192 bytes  
+1000 → 100,234,487 misses  
+2000 → 102,101,573 misses  
+4000 → 126,033,821 misses  
+8000 → 127,863,757 misses  
+
+Stride = 4096 bytes  
+1000 → 100,202,239 misses  
+2000 → 100,505,531 misses  
+4000 → 101,488,966 misses  
+8000 → 114,264,281 misses  
+
+Stride = 2048 bytes  
+1000 → 100,074,626 misses  
+2000 → 100,160,634 misses  
+4000 → 100,522,397 misses  
+8000 → 100,942,273 misses  
+
+**Measurements summary:**
+
+- Stride = 8192 → misses are always ~100M → strong conflict for all element counts.
+- Stride = 4096 → conflicts appear only at larger sizes (≈8000 elements).
+- Stride = 2048 → misses remain flat → no conflict → addresses spread evenly across sets.
+
+**Interpretation:**
+
+Stride determines which cache sets are accessed.  
+- With stride 8192 all accesses map into a single set → heavy conflict → high misses.  
+- With stride 4096 accesses map into two sets → partial conflict.  
+- With stride 2048 accesses map into four sets → no conflict.
+
+This behaviour fits a **4-way associative L1 cache**: a set can hold 4 lines before eviction starts.
+
+**L1 cache structure:**
+
+L1 size = 32 KB  
+Line size = 64 B  
+Associativity = 4 ways  
+
+**Calculations:**
+
+Capacity per way = 32 KB / 4 = 8 KB  
+Number of sets = (Capacity per way) / (Line size)  
+= 8192 B / 64 B  
+= 128 sets  
+
+**Estimate:**
+
+Associativity: 4-way  
+Capacity per way: 8 KB  
+Cache line size: 64 bytes  
+Number of sets: 128
+
+
+## Q8 L1 TLB entries
+
+> Use stride=131136.  At which number of elements is the number of L1
+> TLB misses no longer ~0?  Repeat the same experiment with
+> stride=65600, stride=32832, stride=16448, stride=8256, stride=4160,
+> stride=2112.  How many entries does the L1 TLB have?  How much memory
+> does each entry cover (it's a power of 2, the strides above are chosen
+> to avoid conflict misses in the L1 cache)?
+
+### ANSWER
+```
+**Commands used**
+LC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear <elements> <stride>
+```
+**Measurements**
+
+***Stride = 131136***
+
+1 → 318  
+2 → 689  
+4 → 576  
+8 → 901  
+16 → 870  
+
+***Stride = 65600***
+
+1 → 423  
+2 → 616  
+4 → 638  
+8 → 831  
+16 → 927  
+32 → 646  
+
+***Stride = 32832***
+
+1 → 510  
+2 → 399  
+4 → 423  
+8 → 427  
+16 → 452  
+32 → 663  
+
+***Stride = 16448***
+
+1 → 592  
+2 → 594  
+4 → 579  
+8 → 560  
+16 → 643  
+32 → 755  
+
+***Stride = 8256***
+
+1 → 512  
+2 → 574  
+4 → 624  
+8 → 578  
+16 → 458  
+32 → 656  
+
+***Stride = 4160***
+
+1 → 547  
+2 → 593  
+4 → 432  
+8 → 426  
+16 → 582  
+32 → 678  
+
+***Stride = 2112***
+
+1 → 594  
+2 → 538  
+4 → 388  
+8 → 453  
+16 → 467  
+32 → 517  
+
+**Interpretation:**
+
+**Interpretation:**
+
+The event `dtlb_load_misses.walk_completed` counts how many times the CPU must walk the page table because
+a virtual→physical address translation was not found in the TLB.  
+A TLB (Translation Lookaside Buffer) is a small cache that stores recent address translations.
+When the working set exceeds the TLB capacity or multiple accesses conflict in the same TLB set, the TLB begins to miss.
+
+Across the measurements, we see:
+
+- Large strides (such as 131136 or 65600 bytes) produce higher TLB miss counts.  
+- Smaller strides (such as 2112 or 4160 bytes) show fewer TLB misses.  
+- This indicates that fewer pages are reused when strides are large, and the CPU must translate many distinct pages, exceeding TLB capacity.
+
+**Estimate:**
+
+TLB capacity is exceeded at large strides (> 128 KB), causing high misses, and becomes sufficient at strides ≤ 32 KB, where misses drop. This behavior suggests a DTLB with approximately 32–64 entries, consistent with typical processor designs.
+
+
+## Q9 L1 TLB miss penalty
+
+> Choose parameters such that the L1 TLB misses are close to 100M, but
+> the L1 cache misses and L2 TLB misses are ~0.  How much does
+> each access cost?
+
+### ANSWER
+
+**Commands used:**
+```
+LC_NUMERIC=prog perf stat \
+  -e cycles \
+  -e L1-dcache-load-misses \
+  -e dtlb_load_misses.walk_completed \
+  -e dTLB-load-misses \
+  /nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 32768 4096
+```
+**Transcript excerpt:**
+```
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 32768 4096':
+
+    22_342_922_620      cycles                                                                  (49.98%)
+       115_960_169      L1-dcache-load-misses                                                   (49.99%)
+        99_628_129      dtlb_load_misses.walk_completed                                         (25.01%)
+        99_616_034      dTLB-load-misses                                                        (25.00%)
+
+       9.297195924 seconds time elapsed
+
+       9.219837000 seconds user
+       0.075998000 seconds sys
+```
+
+**Measurements:**
+
+L1 TLB misses: 99,628,129
+L1 cache misses: 115,960,169
+L2 TLB misses: 99,616,034
+Total cycles: 22,342,922,620
+
+memory1 performs 100,000,000 dependent accesses.
+
+*Cycles per access:*
+
+22,342,922,620 / 100,000,000 = 223.42 cycles per access
+
+**Interpretation:**
+
+Using 32768 elements with stride = 4096 means each dependent access jumps to a new 4 KB page.
+This causes one TLB miss per access, so the cycle cost is dominated by TLB miss penalties.
+L1 cache misses also rise because page table walks use cache lines.
+
+**Estimate:**
+
+Estimated L1 TLB miss penalty: about 220–225 cycles per access.
+
+
+
+## Q10 L2 TLB entries
+
+> Use stride=65600.  Which is the last number of elements where the miss
+> rate is ~0?
+
+### ANSWER
+
+**Commands used:**
+```
+LC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear <elements> 65600
+```
+**Measurements (stride = 65600):**
+
+1 → 474 misses  
+2 → 380 misses  
+4 → 410 misses  
+8 → 509 misses  
+16 → not counted  
+32 → 592 misses  
+
+**Summary:**
+
+All values stay very small (around 400–600 misses). This indicates no real L2 TLB pressure and only loop overhead.
+
+**Interpretation:**
+
+With stride = 65600, each element lands on a different page.  
+Miss counts stay near zero until 32 elements.  
+Therefore, the L2 TLB can hold at least 32 page translations.
+
+**Answer:**
+
+The last number of elements where the miss rate is approximately zero is 32.
+
+
+## Q11 L2 TLB miss penalty
+
+> Choose the parameters such that the number of L2 cache misses stays
+> <1M, but the number of L2 TLB misses rises to >90M.  What is the number
+> of cycles per memory access?

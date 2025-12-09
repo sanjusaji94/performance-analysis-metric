@@ -1,0 +1,82 @@
+Script started on 2025-12-09 20:49:52+01:00 [TERM="xterm-256color" TTY="/dev/pts/15" COLUMNS="122" LINES="12"]
+[?2004h[ep12435347:~/Exercises/12435347/3:498] [7mLC_NUMERIC=prog perf stat -e l2_rqsts.demand_data_rd_miss \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 20000 64[27m[ALC_NUMERIC=prog perf stat -e l2_rqsts.demand_data_rd_miss \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 20000 64
+[?2004lsize: 1279944, offsets at 0x0 0x40 0x80 0xc0 ...
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 20000 64':
+
+           133_852      l2_rqsts.demand_data_rd_miss                                          
+
+       0.288016064 seconds time elapsed
+
+       0.279282000 seconds user
+       0.007979000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:499] [7mLC_NUMERIC=prog perf stat -e l2_rqsts.demand_data_rd_miss \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 40000 64[27m[ALC_NUMERIC=prog perf stat -e l2_rqsts.demand_data_rd_miss \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 40000 64
+[?2004lsize: 2559944, offsets at 0x0 0x40 0x80 0xc0 ...
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 40000 64':
+
+           122_454      l2_rqsts.demand_data_rd_miss                                          
+
+       0.275170816 seconds time elapsed
+
+       0.274432000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:500] [7mLC_NUMERIC=prog perf stat -e l2_rqsts.demand_data_rd_miss \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 80000 64[27m[ALC_NUMERIC=prog perf stat -e l2_rqsts.demand_data_rd_miss \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 80000 64
+[?2004lsize: 5119944, offsets at 0x0 0x40 0x80 0xc0 ...
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 80000 64':
+
+           129_652      l2_rqsts.demand_data_rd_miss                                          
+
+       0.289445032 seconds time elapsed
+
+       0.280472000 seconds user
+       0.008013000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:501] [7mLC_NUMERIC=prog perf stat -e l2_rqsts.demand_data_rd_miss \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 160000 64[27m
+[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[CLC_NUMERIC=prog perf stat -e l2_rqsts.demand_data_rd_miss \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 160000 64
+[A
+[?2004lsize: 10239944, offsets at 0x0 0x40 0x80 0xc0 ...
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 160000 64':
+
+           208_088      l2_rqsts.demand_data_rd_miss                                          
+
+       0.307090201 seconds time elapsed
+
+       0.290082000 seconds user
+       0.016115000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:502] [7mLC_NUMERIC=prog perf stat -e l2_rqsts.demand_data_rd_miss \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 320000 64[27m[ALC_NUMERIC=prog perf stat -e l2_rqsts.demand_data_rd_miss \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 320000 64
+[?2004lsize: 20479944, offsets at 0x0 0x40 0x80 0xc0 ...
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 320000 64':
+
+           298_037      l2_rqsts.demand_data_rd_miss                                          
+
+       0.481261657 seconds time elapsed
+
+       0.464085000 seconds user
+       0.016002000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:503] exit
+[?2004lexit
+
+Script done on 2025-12-09 20:50:56+01:00 [COMMAND_EXIT_CODE="0"]

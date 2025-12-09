@@ -1,0 +1,67 @@
+Script started on 2025-12-09 21:05:19+01:00 [TERM="xterm-256color" TTY="/dev/pts/15" COLUMNS="122" LINES="12"]
+[?2004h[ep12435347:~/Exercises/12435347/3:498] [7mLC_NUMERIC=prog perf stat \[27m
+[7m  -e cycles \[27m
+[7m  -e L1-dcache-load-misses \[27m
+[7m  -e l2_rqsts.demand_data_rd_miss \[27m
+[7m  -e dtlb_load_misses.walk_completed \[27m
+[7m  -e dTLB-load-misses \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 50000 64[27m
+[A[A[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[CLC_NUMERIC=prog perf stat \
+  -e cycles \
+  -e L1-dcache-load-misses \
+  -e l2_rqsts.demand_data_rd_miss \
+  -e dtlb_load_misses.walk_completed \
+  -e dTLB-load-misses \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 50000 64
+[A
+[?2004lsize: 3199944, offsets at 0x0 0x40 0x80 0xc0 ...
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 50000 64':
+
+     1_282_167_950      cycles                                                                  (38.71%)
+        99_265_858      L1-dcache-load-misses                                                   (40.19%)
+           112_734      l2_rqsts.demand_data_rd_miss                                            (20.45%)
+               318      dtlb_load_misses.walk_completed                                         (20.38%)
+               258      dTLB-load-misses                                                        (18.97%)
+
+       0.275480684 seconds time elapsed
+
+       0.270722000 seconds user
+       0.003981000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:499] [7mLC_NUMERIC=prog perf stat \[27m
+[7m  -e cycles \[27m
+[7m  -e L1-dcache-load-misses \[27m
+[7m  -e l2_rqsts.demand_data_rd_miss \[27m
+[7m  -e dtlb_load_misses.walk_completed \[27m
+[7m  -e dTLB-load-misses \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 random 50000 64[27m
+[A[A[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[CLC_NUMERIC=prog perf stat \
+  -e cycles \
+  -e L1-dcache-load-misses \
+  -e l2_rqsts.demand_data_rd_miss \
+  -e dtlb_load_misses.walk_completed \
+  -e dTLB-load-misses \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 random 50000 64
+[A
+[?2004lsize: 3199944, offsets at 0x0 0x40 0x80 0xc0 ..., randomized
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 random 50000 64':
+
+     5_231_675_884      cycles                                                                  (39.79%)
+       100_229_279      L1-dcache-load-misses                                                   (40.09%)
+        93_659_969      l2_rqsts.demand_data_rd_miss                                            (20.07%)
+               119      dtlb_load_misses.walk_completed                                         (20.07%)
+               343      dTLB-load-misses                                                        (19.77%)
+
+       1.117571776 seconds time elapsed
+
+       1.116804000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:500] exit
+[?2004lexit
+
+Script done on 2025-12-09 21:05:55+01:00 [COMMAND_EXIT_CODE="0"]

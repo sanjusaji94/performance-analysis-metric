@@ -1,0 +1,31 @@
+Script started on 2025-12-09 23:28:30+01:00 [TERM="xterm-256color" TTY="/dev/pts/15" COLUMNS="122" LINES="12"]
+[?2004h[ep12435347:~/Exercises/12435347/3:498] [7mLC_NUMERIC=prog perf stat \[27m
+[7m  -e cycles \[27m
+[7m  -e L1-dcache-load-misses \[27m
+[7m  -e dtlb_load_misses.walk_completed \[27m
+[7m  -e dTLB-load-misses \[27m
+[7m  /nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 32768 4096[27m[A[A[A[A[ALC_NUMERIC=prog perf stat \
+  -e cycles \
+  -e L1-dcache-load-misses \
+  -e dtlb_load_misses.walk_completed \
+  -e dTLB-load-misses \
+  /nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 32768 4096
+[?2004lsize: 134213640, offsets at 0x0 0x1000 0x2000 0x3000 ...
+exit
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 32768 4096':
+
+    22_342_922_620      cycles                                                                  (49.98%)
+       115_960_169      L1-dcache-load-misses                                                   (49.99%)
+        99_628_129      dtlb_load_misses.walk_completed                                         (25.01%)
+        99_616_034      dTLB-load-misses                                                        (25.00%)
+
+       9.297195924 seconds time elapsed
+
+       9.219837000 seconds user
+       0.075998000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:499] exit
+[?2004lexit
+
+Script done on 2025-12-09 23:29:19+01:00 [COMMAND_EXIT_CODE="0"]

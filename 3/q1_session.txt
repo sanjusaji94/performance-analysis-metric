@@ -1,0 +1,97 @@
+Script started on 2025-12-09 19:59:32+01:00 [TERM="xterm-256color" TTY="/dev/pts/15" COLUMNS="122" LINES="12"]
+[?2004h[ep12435347:~/Exercises/12435347/3:498] [7mLC_NUMERIC=prog perf stat -e L1-dcache-load-misses \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 random 2000 8[27m[ALC_NUMERIC=prog perf stat -e L1-dcache-load-misses \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 random 2000 8
+[?2004lsize: 16000, offsets at 0x0 0x8 0x10 0x18 ..., randomized
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 random 2000 8':
+
+            19_252      L1-dcache-load-misses                                                 
+
+       0.108509990 seconds time elapsed
+
+       0.107820000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:499] [7mLC_NUMERIC=prog perf stat -e L1-dcache-load-misses \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 random 4000 8[27m[ALC_NUMERIC=prog perf stat -e L1-dcache-load-misses \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 random 4000 8
+[?2004lsize: 32000, offsets at 0x0 0x8 0x10 0x18 ..., randomized
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 random 4000 8':
+
+            26_861      L1-dcache-load-misses                                                 
+
+       0.108683872 seconds time elapsed
+
+       0.107876000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:500] [7mLC_NUMERIC=prog perf stat -e L1-dcache-load-misses \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 random 8000 8[27m
+[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[CLC_NUMERIC=prog perf stat -e L1-dcache-load-misses \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 random 8000 8
+[A
+[?2004lsize: 64000, offsets at 0x0 0x8 0x10 0x18 ..., randomized
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 random 8000 8':
+
+        26_023_942      L1-dcache-load-misses                                                 
+
+       0.167807829 seconds time elapsed
+
+       0.159250000 seconds user
+       0.007768000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:501] [7mLC_NUMERIC=prog perf stat -e L1-dcache-load-misses \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 random 16000 8[27m[ALC_NUMERIC=prog perf stat -e L1-dcache-load-misses \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 random 16000 8
+[?2004lsize: 128000, offsets at 0x0 0x8 0x10 0x18 ..., randomized
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 random 16000 8':
+
+        65_775_143      L1-dcache-load-misses                                                 
+
+       0.221779438 seconds time elapsed
+
+       0.217158000 seconds user
+       0.003948000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:502] [7mLC_NUMERIC=prog perf stat -e L1-dcache-load-misses \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 random 16000 8[27m[ALC_NUMERIC=prog perf stat -e L1-dcache-load-misses \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 random 16000 8[1P 8[1P 8[1P 8[1P 8[1P 83 82 80 80 80 8[C[C
+[?2004lsize: 256000, offsets at 0x0 0x8 0x10 0x18 ..., randomized
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 random 32000 8':
+
+        83_320_114      L1-dcache-load-misses                                                 
+
+       0.252557157 seconds time elapsed
+
+       0.251833000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:503] [7mLC_NUMERIC=prog perf stat -e L1-dcache-load-misses \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 random 16000 8[27m[ALC_NUMERIC=prog perf stat -e L1-dcache-load-misses \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 random 16000 8[1P 8[1P 8[1P 8[1P 8[1P 86 84 80 80 80 8[C[C
+[?2004lsize: 512000, offsets at 0x0 0x8 0x10 0x18 ..., randomized
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 random 64000 8':
+
+        91_720_628      L1-dcache-load-misses                                                 
+
+       0.489528231 seconds time elapsed
+
+       0.488896000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:504] exit
+[?2004lexit
+
+Script done on 2025-12-09 20:03:17+01:00 [COMMAND_EXIT_CODE="0"]

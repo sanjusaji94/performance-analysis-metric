@@ -1,0 +1,641 @@
+Script started on 2025-12-09 22:34:47+01:00 [TERM="xterm-256color" TTY="/dev/pts/15" COLUMNS="122" LINES="12"]
+[?2004h[ep12435347:~/Exercises/12435347/3:498] LC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 1 131136
+
+[7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 2 131136[27m
+
+[7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 4 131136[27m
+
+[7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 8 131136[27m
+
+[7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 16 131136[27m[A[A[A[A[A[A[A[A[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 2 131136
+
+LC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 4 131136
+
+LC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 8 131136
+
+LC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 16 131136[K[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K
+[K[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[A[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K
+[K[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[A[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K
+[K[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[A[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K
+[K[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 1 131136[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 1 131136
+[?2004lUsage: /nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear|random <elements> <stride> [silent]
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 LC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed /nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 1 131136':
+
+               318      dtlb_load_misses.walk_completed                                       
+
+       0.002832174 seconds time elapsed
+
+       0.000806000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:499] [7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 2 131136[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 2 131136
+[?2004l
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 2 131136':
+
+               689      dtlb_load_misses.walk_completed                                       
+
+       0.110202751 seconds time elapsed
+
+       0.103872000 seconds user
+       0.003995000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:500] [7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 4 131136[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 4 131136
+[?2004lsize: 393416, offsets at 0x0 0x20040 0x40080 0x600c0 ...
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 4 131136':
+
+               576      dtlb_load_misses.walk_completed                                       
+
+       0.109425840 seconds time elapsed
+
+       0.107881000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:501] 
+[7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 8 131136[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 8 131136
+[?2004lsize: 917960, offsets at 0x0 0x20040 0x40080 0x600c0 ...
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 8 131136':
+
+               901      dtlb_load_misses.walk_completed                                       
+
+       0.259208555 seconds time elapsed
+
+       0.257554000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:502] [7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 16 131136[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 16 131136
+[?2004lsize: 1967048, offsets at 0x0 0x20040 0x40080 0x600c0 ...
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 16 131136':
+
+               870      dtlb_load_misses.walk_completed                                       
+
+       0.258816861 seconds time elapsed
+
+       0.257901000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:503] [7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 1 65600[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 1 65600
+[?2004l
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 1 65600':
+
+               423      dtlb_load_misses.walk_completed                                       
+
+       0.108492802 seconds time elapsed
+
+       0.107790000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:504] [7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 2 65600[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 2 65600
+[?2004l
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 2 65600':
+
+               616      dtlb_load_misses.walk_completed                                       
+
+       0.116678504 seconds time elapsed
+
+       0.107897000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:505] [7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 4 65600[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 4 65600
+[?2004lsize: 196808, offsets at 0x0 0x10040 0x20080 0x300c0 ...
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 4 65600':
+
+               638      dtlb_load_misses.walk_completed                                       
+
+       0.109643500 seconds time elapsed
+
+       0.107762000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:506] 
+[7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 8 65600[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 8 65600
+[?2004lsize: 459208, offsets at 0x0 0x10040 0x20080 0x300c0 ...
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 8 65600':
+
+               831      dtlb_load_misses.walk_completed                                       
+
+       0.273707486 seconds time elapsed
+
+       0.257883000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:507] [7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 16 65600[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 16 65600
+[?2004lsize: 984008, offsets at 0x0 0x10040 0x20080 0x300c0 ...
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 16 65600':
+
+               927      dtlb_load_misses.walk_completed                                       
+
+       0.263672691 seconds time elapsed
+
+       0.260749000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:508] [7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 32 65600[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 32 65600
+[?2004lsize: 2033608, offsets at 0x0 0x10040 0x20080 0x300c0 ...
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 32 65600':
+
+               646      dtlb_load_misses.walk_completed                                       
+
+       0.272541297 seconds time elapsed
+
+       0.259415000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:509] [7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 1 32832[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 1 32832
+[?2004l
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 1 32832':
+
+               510      dtlb_load_misses.walk_completed                                       
+
+       0.108256361 seconds time elapsed
+
+       0.107732000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:510] 
+[7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 2 32832[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 2 32832
+[?2004l
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 2 32832':
+
+               399      dtlb_load_misses.walk_completed                                       
+
+       0.119673833 seconds time elapsed
+
+       0.104007000 seconds user
+       0.004000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:511] [7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 4 32832[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 4 32832
+[?2004lsize: 98504, offsets at 0x0 0x8040 0x10080 0x180c0 ...
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 4 32832':
+
+               423      dtlb_load_misses.walk_completed                                       
+
+       0.116552491 seconds time elapsed
+
+       0.107505000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:512] [7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 8 32832[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 8 32832
+[?2004lsize: 229832, offsets at 0x0 0x8040 0x10080 0x180c0 ...
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 8 32832':
+
+               427      dtlb_load_misses.walk_completed                                       
+
+       0.122050534 seconds time elapsed
+
+       0.108033000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:513] [7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 16 32832[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 16 32832
+[?2004lsize: 492488, offsets at 0x0 0x8040 0x10080 0x180c0 ...
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 16 32832':
+
+               452      dtlb_load_misses.walk_completed                                       
+
+       0.269218939 seconds time elapsed
+
+       0.257210000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:514] [7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 32 32832[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 32 32832
+[?2004lsize: 1017800, offsets at 0x0 0x8040 0x10080 0x180c0 ...
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 32 32832':
+
+               663      dtlb_load_misses.walk_completed                                       
+
+       0.264104875 seconds time elapsed
+
+       0.257403000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:515] [7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 1 16448[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 1 16448
+[?2004l
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 1 16448':
+
+               592      dtlb_load_misses.walk_completed                                       
+
+       0.109478001 seconds time elapsed
+
+       0.107895000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:516] [7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 2 16448[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 2 16448
+[?2004l
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 2 16448':
+
+               594      dtlb_load_misses.walk_completed                                       
+
+       0.109598685 seconds time elapsed
+
+       0.107713000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:517] [7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 4 16448[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 4 16448
+[?2004lsize: 49352, offsets at 0x0 0x4040 0x8080 0xc0c0 ...
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 4 16448':
+
+               579      dtlb_load_misses.walk_completed                                       
+
+       0.110298083 seconds time elapsed
+
+       0.108398000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:518] [7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 8 16448[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 8 16448
+[?2004lsize: 115144, offsets at 0x0 0x4040 0x8080 0xc0c0 ...
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 8 16448':
+
+               560      dtlb_load_misses.walk_completed                                       
+
+       0.110978737 seconds time elapsed
+
+       0.103767000 seconds user
+       0.003991000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:519] [7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 16 16448[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 16 16448
+[?2004lsize: 246728, offsets at 0x0 0x4040 0x8080 0xc0c0 ...
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 16 16448':
+
+               643      dtlb_load_misses.walk_completed                                       
+
+       0.110880910 seconds time elapsed
+
+       0.107915000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:520] [7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 32 16448[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 32 16448
+[?2004lsize: 509896, offsets at 0x0 0x4040 0x8080 0xc0c0 ...
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 32 16448':
+
+               755      dtlb_load_misses.walk_completed                                       
+
+       0.260116132 seconds time elapsed
+
+       0.257469000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:521] [7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 1 8256[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 1 8256
+[?2004l
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 1 8256':
+
+               512      dtlb_load_misses.walk_completed                                       
+
+       0.109718277 seconds time elapsed
+
+       0.107606000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:522] [7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 2 8256[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 2 8256
+[?2004l
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 2 8256':
+
+               574      dtlb_load_misses.walk_completed                                       
+
+       0.109552149 seconds time elapsed
+
+       0.107798000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:523] [7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 4 8256[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 4 8256
+[?2004lsize: 24776, offsets at 0x0 0x2040 0x4080 0x60c0 ...
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 4 8256':
+
+               624      dtlb_load_misses.walk_completed                                       
+
+       0.110388958 seconds time elapsed
+
+       0.108606000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:524] [7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 8 8256[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 8 8256
+[?2004lsize: 57800, offsets at 0x0 0x2040 0x4080 0x60c0 ...
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 8 8256':
+
+               578      dtlb_load_misses.walk_completed                                       
+
+       0.109035487 seconds time elapsed
+
+       0.103939000 seconds user
+       0.003997000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:525] [7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 16 8256[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 16 8256
+[?2004lsize: 123848, offsets at 0x0 0x2040 0x4080 0x60c0 ...
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 16 8256':
+
+               458      dtlb_load_misses.walk_completed                                       
+
+       0.122168436 seconds time elapsed
+
+       0.107781000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:526] [7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 32 8256[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 32 8256
+[?2004lsize: 255944, offsets at 0x0 0x2040 0x4080 0x60c0 ...
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 32 8256':
+
+               656      dtlb_load_misses.walk_completed                                       
+
+       0.110319947 seconds time elapsed
+
+       0.108167000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:527] [7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 1 4160[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 1 4160
+[?2004l
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 1 4160':
+
+               547      dtlb_load_misses.walk_completed                                       
+
+       0.109286269 seconds time elapsed
+
+       0.107932000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:528] [7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 2 4160[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 2 4160
+[?2004l
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 2 4160':
+
+               593      dtlb_load_misses.walk_completed                                       
+
+       0.110489460 seconds time elapsed
+
+       0.107848000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:529] [7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 2 4160[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 2 4160
+[?2004l
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 2 4160':
+
+               432      dtlb_load_misses.walk_completed                                       
+
+       0.114781303 seconds time elapsed
+
+       0.107491000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:530] [7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 8 4160[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 8 4160
+[?2004lsize: 29128, offsets at 0x0 0x1040 0x2080 0x30c0 ...
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 8 4160':
+
+               426      dtlb_load_misses.walk_completed                                       
+
+       0.119395249 seconds time elapsed
+
+       0.103734000 seconds user
+       0.003989000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:531] [7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 16 4160[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 16 4160
+[?2004lsize: 62408, offsets at 0x0 0x1040 0x2080 0x30c0 ...
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 16 4160':
+
+               582      dtlb_load_misses.walk_completed                                       
+
+       0.109236891 seconds time elapsed
+
+       0.107596000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:532] [7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 32 4160[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 32 4160
+[?2004lsize: 128968, offsets at 0x0 0x1040 0x2080 0x30c0 ...
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 32 4160':
+
+               678      dtlb_load_misses.walk_completed                                       
+
+       0.109654232 seconds time elapsed
+
+       0.107878000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:533] [7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 1 2112[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 1 2112
+[?2004l
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 1 2112':
+
+               594      dtlb_load_misses.walk_completed                                       
+
+       0.109417613 seconds time elapsed
+
+       0.107702000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:534] [7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 2 2112[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 2 2112
+[?2004l
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 2 2112':
+
+               538      dtlb_load_misses.walk_completed                                       
+
+       0.109773655 seconds time elapsed
+
+       0.107719000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:535] [7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 4 2112[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 4 2112
+[?2004lsize: 6344, offsets at 0x0 0x840 0x1080 0x18c0 ...
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 4 2112':
+
+               388      dtlb_load_misses.walk_completed                                       
+
+       0.118599994 seconds time elapsed
+
+       0.107645000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:536] [7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 8 2112[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 8 2112
+[?2004lsize: 14792, offsets at 0x0 0x840 0x1080 0x18c0 ...
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 8 2112':
+
+               453      dtlb_load_misses.walk_completed                                       
+
+       0.113075250 seconds time elapsed
+
+       0.107511000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:537] [7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 16 2112[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 16 2112
+[?2004lsize: 31688, offsets at 0x0 0x840 0x1080 0x18c0 ...
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 16 2112':
+
+               467      dtlb_load_misses.walk_completed                                       
+
+       0.114876957 seconds time elapsed
+
+       0.107656000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:538] [7mLC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \[27m
+[7m/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 32 2112[27m[ALC_NUMERIC=prog perf stat -e dtlb_load_misses.walk_completed \
+/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 32 2112
+[?2004lsize: 65480, offsets at 0x0 0x840 0x1080 0x18c0 ...
+
+ Performance counter stats for '/nfs/a5/anton/pub/anton/lvas/efficient/25/3/memory1 linear 32 2112':
+
+               517      dtlb_load_misses.walk_completed                                       
+
+       0.110483013 seconds time elapsed
+
+       0.107832000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/3:539] exit
+[?2004lexit
+
+Script done on 2025-12-09 22:45:27+01:00 [COMMAND_EXIT_CODE="0"]
