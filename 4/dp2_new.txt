@@ -1,0 +1,35 @@
+Script started on 2026-01-06 21:54:16+01:00 [TERM="xterm-256color" TTY="/dev/pts/32" COLUMNS="62" LINES="7"]
+[?2004h[ep12435347:~/Exercises/12435347/4:501] make
+[?2004lgcc  -Wall -O3 -march=native -mtune=znver4 -ffast-math  -c dp2.c -o dp2-auto-gcc.o
+gcc dp2-auto-gcc.o dp2m.o -o dp2-auto-gcc
+gcc  -Wall -O3 -march=native -mtune=znver4 -ffast-math -fno-tree-vectorize -c dp2.c -o dp2-noauto-gcc.o
+gcc dp2-noauto-gcc.o dp2m.o -o dp2-noauto-gcc
+[?2004h[ep12435347:~/Exercises/12435347/4:502] [7mperf stat -e cycles:u [27m[7m.[27m[7m/dp2-noauto-gcc >/dev/null[27m[A[C[C[C[C[C[C[C[C[C[C[C[C[Cperf stat -e cycles:u ./dp2-noauto-gcc >/dev/null[7mperf stat -e cycles:u ./dp2-noauto-[27m[7mg[27m[7mcc >/dev/null[27m[A[C[C[C[C[C[C[C[C[C[C[C[C[Cperf stat -e cycles:u ./dp2-noauto-g[1Pcc >/dev/nul[K[K[K[K[K[K[K[K[K[K[K[K[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kl
+[?2004l
+ Performance counter stats for './dp2-noauto-gcc':
+
+        4438404005      cycles:u                                                              
+
+       0.951863104 seconds time elapsed
+
+       0.939794000 seconds user
+       0.011997000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/4:503] [7mperf stat -e cycles:u [27m[7m.[27m[7m/dp2-auto-gcc  >/dev/null[27m[A[C[C[C[C[C[C[C[C[C[C[C[C[C[Cperf stat -e cycles:u ./dp2-auto-gcc  >/dev/null
+[?2004l
+ Performance counter stats for './dp2-auto-gcc':
+
+        4439271440      cycles:u                                                              
+
+       0.951015818 seconds time elapsed
+
+       0.947069000 seconds user
+       0.003996000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/4:504] exit
+[?2004lexit
+
+Script done on 2026-01-06 22:01:21+01:00 [COMMAND_EXIT_CODE="0"]

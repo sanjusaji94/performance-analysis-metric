@@ -1,0 +1,57 @@
+Script started on 2026-01-06 23:39:54+01:00 [TERM="xterm-256color" TTY="/dev/pts/32" COLUMNS="62" LINES="17"]
+[?2004h[ep12435347:~/Exercises/12435347/4:501] [7mperf stat -e cycles:u,[27m[7mc[27m[7mycles:k ./gen1-noauto-gcc   >/dev/null[27m[A[Cperf stat -e cycles:u,cycles:k ./gen1-noauto-gcc   >/dev/null
+[?2004l
+ Performance counter stats for './gen1-noauto-gcc':
+
+         776165068      cycles:u                                                              
+           1018478      cycles:k                                                              
+
+       0.184666097 seconds time elapsed
+
+       0.184665000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/4:502] [7mperf stat -e cycles:u,[27m[7mc[27m[7mycles:k ./gen1-noauto-clang >/dev/null[27m[A[Cperf stat -e cycles:u,cycles:k ./gen1-noauto-clang >/dev/null
+[?2004l
+ Performance counter stats for './gen1-noauto-clang':
+
+         515267795      cycles:u                                                              
+           1072571      cycles:k                                                              
+
+       0.114685056 seconds time elapsed
+
+       0.114643000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/4:503] [7mperf stat -e cycles:u,[27m[7mc[27m[7mycles:k ./gen1-auto-gcc     >/dev/null[27m[A[Cperf stat -e cycles:u,cycles:k ./gen1-auto-gcc     >/dev/null
+[?2004l
+ Performance counter stats for './gen1-auto-gcc':
+
+         119516631      cycles:u                                                              
+            703754      cycles:k                                                              
+
+       0.029320279 seconds time elapsed
+
+       0.029358000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/4:504] [7mperf stat -e cycles:u,[27m[7mc[27m[7mycles:k ./gen1-auto-clang   >/dev/null[27m[A[Cperf stat -e cycles:u,cycles:k ./gen1-auto-clang   >/dev/null
+[?2004l
+ Performance counter stats for './gen1-auto-clang':
+
+          82177936      cycles:u                                                              
+            712618      cycles:k                                                              
+
+       0.020219159 seconds time elapsed
+
+       0.020302000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/4:505] exit
+[?2004lexit
+
+Script done on 2026-01-06 23:40:40+01:00 [COMMAND_EXIT_CODE="0"]

@@ -1,0 +1,685 @@
+This text contains just the questions and leaves away instructions
+etc., so make sure you read the actual exercise4.hmtl text, not just this
+one.
+
+## Q1 Speedup from vectorizing a data-parallel loop
+
+> What is the speedup (measured in cycles) of the best `dp1-auto-*C*`
+> variant over the best `dp1-noauto-*C*` variant?
+
+#### Comparing the noauto variants. 
+
+```
+ Performance counter stats for './dp1-noauto-gcc':
+
+     1_486_638_522      cycles:u                                                              
+         1_258_364      cycles:k                                                              
+     6_025_160_031      instructions:u                   #    4.05  insn per cycle            
+
+       0.321917346 seconds time elapsed
+
+       0.321961000 seconds user
+       0.000000000 seconds sys
+
+
+  Performance counter stats for './dp1-noauto-clang':
+
+     1_294_095_246      cycles:u                                                              
+         1_364_297      cycles:k                                                              
+     3_438_136_024      instructions:u                   #    2.66  insn per cycle            
+
+       0.284568360 seconds time elapsed
+
+       0.284592000 seconds user
+       0.000000000 seconds sys
+```
+The above output reports the number of CPU cycles spent in user space
+(cycles:u) and in kernel space (cycles:k).
+Since the programs execute almost entirely in user space, cycles:u
+is the relevant metric for comparing performance.
+
+From the measurements we can see that the dp1-noauto-clang binary
+performs better than the dp1-noauto-gcc variant.
+Both the number of user-space cycles and the total elapsed time are
+smaller for dp1-noauto-clang, indicating that clang generates more
+efficient scalar code for this loop in the absence of auto-vectorization.
+Therefore, dp1-noauto-clang is chosen as the best noauto baseline for
+the speedup comparisons.
+
+#### Comparing the auto variants. 
+
+```
+ Performance counter stats for './dp1-auto-gcc':
+
+       208_587_160      cycles:u                                                              
+           874_200      cycles:k                                                              
+       494_171_958      instructions:u                   #    2.37  insn per cycle            
+
+       0.045686136 seconds time elapsed
+
+       0.045743000 seconds user
+       0.000000000 seconds sys
+
+ Performance counter stats for './dp1-auto-clang':
+
+       213_839_582      cycles:u                                                              
+           826_158      cycles:k                                                              
+       366_783_957      instructions:u                   #    1.72  insn per cycle            
+
+       0.049325922 seconds time elapsed
+
+       0.049173000 seconds user
+       0.000000000 seconds sys
+```
+In the above outputs for the auto variant, we can clearly 
+see that the dp1-auto-gcc binary performs
+slightly better than the dp1-auto-clang binary.
+This is evident from both the lower number of user-space cycles
+(cycles:u) and the smaller total elapsed time.
+Therefore, dp1-auto-gcc is selected as the best auto-vectorized
+variant for the speedup comparison.
+
+So to find the speedup we can divide the best noauto variant cycles
+and the auto variant cycles. 
+
+The best noauto variant is dp1-noauto-clang with
+1,294,095,246 user-space cycles.
+The best auto-vectorized variant is dp1-auto-gcc with
+208,587,160 user-space cycles.
+
+The speedup (measured in cycles) of the best auto variant over the
+best noauto variant is therefore:
+
+1,294,095,246 / 208,587,160 = 6.20×
+
+
+> What is the speedup of the best `dp1-manual-*C*` variant over the the
+> best `dp1-noauto-*C*` variant?
+
+```
+ Performance counter stats for './dp1-manual-gcc':
+
+       211_913_271      cycles:u                                                              
+           834_042      cycles:k                                                              
+       486_817_961      instructions:u                   #    2.30  insn per cycle            
+
+       0.048722298 seconds time elapsed
+
+       0.048753000 seconds user
+       0.000000000 seconds sys
+
+Performance counter stats for './dp1-manual-clang':
+
+       180_758_863      cycles:u                                                              
+           879_293      cycles:k                                                              
+       350_459_958      instructions:u                   #    1.94  insn per cycle            
+
+       0.042602141 seconds time elapsed
+
+       0.042664000 seconds user
+       0.000000000 seconds sys
+```
+For the manually vectorized variants, the best performing binary is the
+one with the lowest number of user-space cycles.
+In this case, the clang manual binary performs better than the gcc
+manual binary.
+
+Using the best noauto baseline and the best manual variant, the
+speedup (measured in cycles) is computed as:
+
+speedup = cycles(best noauto) / cycles(best manual)
+        = 1,294,095,246 / 180,758,863
+        = 7.16
+
+This means that the manually vectorized variant is 7.16× faster
+than the noauto variant.
+
+> What is the number of FP ops per second (also known as FLOPS) of the
+> programs you used for the answers above (If you assume that the number
+> of FP ops is 2G, the answer is close enough)?
+
+The total number of floating-point operations is approximated as 2G
+(2 × 10^9). This estimate is based on about 2M iterations, an average
+vector length of approximately 500 elements, and 2 floating-point
+operations per element.
+
+Using this assumption, the FLOPS are computed as:
+
+  FLOPS = (2 × 10^9) / (elapsed time)
+
+For dp1-noauto-clang:
+  FLOPS ≈ 2 × 10^9 / 0.284568360 ≈ 7.03 GFLOPS
+
+For dp1-auto-gcc:
+  FLOPS ≈ 2 × 10^9 / 0.045686136 ≈ 43.78 GFLOPS
+
+For dp1-manual-clang:
+  FLOPS ≈ 2 × 10^9 / 0.042602141 ≈ 46.95 GFLOPS
+
+The significantly higher FLOPS achieved by the auto-vectorized and
+manually vectorized variants demonstrate the benefit of SIMD execution
+compared to the scalar noauto variant.
+
+## Q2 What obstructs vectorization?
+
+> What change prevents auto-vectorization by gcc?
+
+I modified dp2.c to introduce a loop-carried dependency by updating x[i]
+using x[i-1] inside the loop. Because each iteration depends on the
+previous iteration’s result, the loop cannot be safely vectorized with SIMD.
+The loop starts at i=1 to avoid accessing x[-1] at i=0.
+
+#### Change in code :
+```
+--- dp1.c	2025-12-11 19:45:18.000000000 +0100
++++ dp2.c	2026-01-06 12:09:31.772507619 +0100
+@@ -3,6 +3,8 @@
+ void axpy1(float a, float *x, float * restrict y, size_t n)
+ {
+   size_t i;
+-  for (i=0; i<n; i++)
+-    y[i] += a*x[i];
+-}
++  for (i=1; i<n; i++) {
++    x[i] = x[i - 1] * (float)n;   // loop-carried dependency
++    y[i] += a * x[i];
++  }
+
+```
+#### Measurement after the code update :
+```
+Performance counter stats for './dp2-noauto-gcc':
+
+        4438404005      cycles:u                                                              
+
+       0.951863104 seconds time elapsed
+
+       0.939794000 seconds user
+       0.011997000 seconds sys
+
+ Performance counter stats for './dp2-auto-gcc':
+
+        4439271440      cycles:u                                                              
+
+       0.951015818 seconds time elapsed
+
+       0.947069000 seconds user
+       0.003996000 seconds sys
+```
+To determine whether auto-vectorization works, I compare the speedup
+(measured in cycles:u) of dp2-auto-gcc over dp2-noauto-gcc.
+Auto-vectorization is considered unsuccessful if the speedup is not more
+than 1.5×, i.e. cycles(noauto) / cycles(auto) ≤ 1.5.
+
+Measured cycles:u (gcc):
+
+dp2-noauto-gcc: 4,438,404,005
+dp2-auto-gcc:   4,439,271,440
+
+Speedup = cycles(noauto) / cycles(auto)
+        = 4,438,404,005 / 4,439,271,440
+        ≈ 0.9998× (≤ 1.5×)
+
+Therefore, gcc auto-vectorization does not work for the modified dp2.c.
+
+
+> What change prevents auto-vectorization by clang?
+
+To prevent auto-vectorization by clang with a minimal change, I disabled
+loop vectorization explicitly by inserting the clang loop pragma
+`#pragma clang loop vectorize(disable)` directly before the loop in
+`axpy1()` (guarded by `#ifdef __clang__`).
+
+#### Change in code :
+
+```
+--- dp1.c	2025-12-11 19:45:18.000000000 +0100
++++ dp3.c	2026-01-06 21:34:25.318478269 +0100
+@@ -3,6 +3,10 @@
+ void axpy1(float a, float *x, float * restrict y, size_t n)
+ {
+   size_t i;
++  
++#ifdef __clang__
++#pragma clang loop vectorize(disable)
++#endif
+   for (i=0; i<n; i++)
+     y[i] += a*x[i];
+ }
+
+For clang, auto-vectorization was disabled explicitly using a clang-specific
+loop pragma, ensuring that the compiler does not vectorize the loop even in
+the auto variant.
+
+```
+#### Measurement after the code update :
+
+```
+Performance counter stats for './dp3-noauto-clang':
+
+        1294191664      cycles:u                                                              
+
+       0.277057035 seconds time elapsed
+
+       0.276987000 seconds user
+       0.000000000 seconds sys
+
+ Performance counter stats for './dp3-auto-clang':
+
+        1294461461      cycles:u                                                              
+
+       0.277693711 seconds time elapsed
+
+       0.277711000 seconds user
+       0.000000000 seconds sys
+```
+To determine whether auto-vectorization works, I use the criterion from
+the assignment: for compiler C, auto-vectorization is considered
+unsuccessful if dp3-auto-C is not more than 1.5× faster than
+dp3-noauto-C, i.e. cycles(noauto) / cycles(auto) ≤ 1.5.
+
+Measured cycles:u (clang):
+
+dp3-noauto-clang: 1,294,191,664
+dp3-auto-clang: 1,294,461,461
+
+Speedup = 1,294,191,664 / 1,294,461,461 ≈ 0.9998× (≤ 1.5×)
+
+Therefore, clang auto-vectorization does not work for the modified
+dp3.c.
+
+## Q3 When does gcc auto-vectorization fail?
+
+> Please show a vectorizable loop (extracted from `dp4.c`) that is
+vectorizable (equivalent manually vectorized code in `dp4-manual.c`),
+but that gcc does not auto-vectorize.  Include the measurements that
+indicate that the non-vectorization of `dp4-auto-gcc` and the
+vectorization of `dp4-manual-gcc`.
+
+The original loop in dp4.c is vectorizable and gcc successfully
+auto-vectorizes it. This is visible because dp4-auto-gcc is much faster
+than dp4-noauto-gcc, and its performance is similar to the manually
+vectorized version dp4-manual-gcc.
+
+To create a case where the loop is still vectorizable but gcc does not
+auto-vectorize it, I inserted a compiler memory barrier inside the loop:
+asm volatile("" ::: "memory"); . This forces gcc to assume memory may
+change in an unknown way between iterations and prevents auto-vectorization.
+
+#### Code Change 
+
+```
+--- dp1.c	2025-12-11 19:45:18.000000000 +0100
++++ dp4.c	2026-01-06 22:49:17.325296913 +0100
+@@ -3,6 +3,8 @@
+ void axpy1(float a, float *x, float * restrict y, size_t n)
+ {
+   size_t i;
+-  for (i=0; i<n; i++)
++  for (i=0; i<n; i++){
++    asm volatile("" ::: "memory");   // blocks auto-vectorization
+     y[i] += a*x[i];
+-}
++  }
++}
+```
+#### Measurements before the change
+
+```
+Performance counter stats for './dp4-noauto-gcc':
+
+        1487492530      cycles:u                                                              
+           1541874      cycles:k                                                              
+
+       0.318821677 seconds time elapsed
+
+       0.318613000 seconds user
+       0.000000000 seconds sys
+
+
+ Performance counter stats for './dp4-auto-gcc':
+
+         208141908      cycles:u                                                              
+           1002089      cycles:k                                                              
+
+       0.044381818 seconds time elapsed
+
+       0.044336000 seconds user
+       0.000000000 seconds sys
+
+
+
+ Performance counter stats for './dp4-manual-gcc':
+
+         213817207      cycles:u                                                              
+            991290      cycles:k                                                              
+
+       0.045851020 seconds time elapsed
+
+       0.045694000 seconds user
+       0.000000000 seconds sys
+```
+#### Measurements after the change
+
+```
+Performance counter stats for './dp4-noauto-gcc':
+
+        1501339094      cycles:u                                                              
+           3557562      cycles:k                                                              
+
+       0.321749719 seconds time elapsed
+
+       0.321756000 seconds user
+       0.000000000 seconds sys
+
+
+
+ Performance counter stats for './dp4-auto-gcc':
+
+        1497925799      cycles:u                                                              
+           2456422      cycles:k                                                              
+
+       0.320961831 seconds time elapsed
+
+       0.320991000 seconds user
+       0.000000000 seconds sys
+
+
+
+ Performance counter stats for './dp4-manual-gcc':
+
+         215101028      cycles:u                                                              
+            919893      cycles:k                                                              
+
+       0.045251415 seconds time elapsed
+
+       0.045249000 seconds user
+       0.000000000 seconds sys
+```
+
+dp4-noauto-gcc / dp4-auto-gcc
+= 1,501,339,094 / 1,497,925,799
+≈ 1.0023×
+
+dp4-auto-gcc / dp4-manual-gcc
+= 1,497,925,799 / 215,101,028
+≈ 6.964×
+
+The loop is vectorizable, as shown by the performance of dp4-manual-gcc,
+but gcc does not auto-vectorize it after inserting the memory barrier.
+This demonstrates a case where gcc auto-vectorization fails even though
+vectorization is possible.
+
+## Q4 Speedup for a reduction
+
+> What is the speedup (measured in cycles) of the best `red1-auto-*C*`
+> variant over the best `red1-noauto-*C*` variant?
+
+#### Measurement:
+
+```
+ Performance counter stats for './red1-noauto-gcc':
+
+        1860998452      cycles:u                                                              
+           1374945      cycles:k                                                              
+
+       0.401542619 seconds time elapsed
+
+       0.401546000 seconds user
+       0.000000000 seconds sys
+
+
+ Performance counter stats for './red1-noauto-clang':
+
+        1796886312      cycles:u                                                              
+           1783966      cycles:k                                                              
+
+       0.387266199 seconds time elapsed
+
+       0.387337000 seconds user
+       0.000000000 seconds sys
+
+
+ Performance counter stats for './red1-auto-gcc':
+
+          92586368      cycles:u                                                              
+            797283      cycles:k                                                              
+
+       0.023084180 seconds time elapsed
+
+       0.023118000 seconds user
+       0.000000000 seconds sys
+
+
+ Performance counter stats for './red1-auto-clang':
+
+          73601654      cycles:u                                                              
+            808987      cycles:k                                                              
+
+       0.020190803 seconds time elapsed
+
+       0.020170000 seconds user
+       0.000000000 seconds sys
+
+```
+#### Best variants (cycles:u)
+
+Best noauto: red1-noauto-clang with 1,796,886,312 cycles:u
+
+Best auto: red1-auto-clang with 73,601,654 cycles:u
+
+#### Speedup (best auto over best noauto)
+
+I compute speedup as cycles(best noauto) / cycles(best auto):
+
+speedup = 1,796,886,312 / 73,601,654 ≈ 24.41×
+
+So, the best auto-vectorized variant is about 24.41× faster (in cycles:u)
+than the best noauto variant.
+
+> What is the number of FP ops per second (also known as FLOPS) of the
+> programs you used for the answers above (If you assume that the
+> number of FP ops is 1G, the answer is close enough)?
+
+#### FLOPS (assume 1G FP ops)
+
+Total FP ops is approximately:
+
+1M reductions × average 500 elements × 2 FP ops per element ≈ 1G FP ops
+
+Using time elapsed from the two best variants:
+
+red1-noauto-clang: 1G / 0.387266199 ≈ 2.58 GFLOPS
+
+red1-auto-clang: 1G / 0.020190803 ≈ 49.53 GFLOPS
+
+Conclusion
+
+Best noauto is red1-noauto-clang (1,796,886,312 cycles:u) and best auto is
+red1-auto-clang (73,601,654 cycles:u). The resulting speedup is 24.41×.
+Assuming 1G FP ops, the achieved throughput is about 2.58 GFLOPS (noauto)
+vs 49.53 GFLOPS (auto).
+
+## Q5 Speedup for a generation
+
+> What is the speedup (measured in cycles) of the best `gen1-auto-*C*`
+> variant over the best `gen1-noauto-*C*` variant?
+
+#### Measurement
+
+```
+ Performance counter stats for './gen1-noauto-gcc':
+
+         776165068      cycles:u                                                              
+           1018478      cycles:k                                                              
+
+       0.184666097 seconds time elapsed
+
+       0.184665000 seconds user
+       0.000000000 seconds sys
+
+ Performance counter stats for './gen1-noauto-clang':
+
+         515267795      cycles:u                                                              
+           1072571      cycles:k                                                              
+
+       0.114685056 seconds time elapsed
+
+       0.114643000 seconds user
+       0.000000000 seconds sys
+
+
+ Performance counter stats for './gen1-auto-gcc':
+
+         119516631      cycles:u                                                              
+            703754      cycles:k                                                              
+
+       0.029320279 seconds time elapsed
+
+       0.029358000 seconds user
+       0.000000000 seconds sys
+
+
+ Performance counter stats for './gen1-auto-clang':
+
+          82177936      cycles:u                                                              
+            712618      cycles:k                                                              
+
+       0.020219159 seconds time elapsed
+
+       0.020302000 seconds user
+       0.000000000 seconds sys
+
+```
+
+gen1-noauto-gcc: 776,165,068 cycles:u
+
+gen1-noauto-clang: 515,267,795 cycles:u
+
+gen1-auto-gcc: 119,516,631 cycles:u
+
+gen1-auto-clang: 82,177,936 cycles:u
+
+#### Best variants (cycles:u)
+
+Best noauto: gen1-noauto-clang with 515,267,795 cycles:u
+
+Best auto: gen1-auto-clang with 82,177,936 cycles:u
+
+#### Speedup (best auto over best noauto)
+
+I compute speedup as cycles(best noauto) / cycles(best auto):
+
+speedup = 515,267,795 / 82,177,936 ≈ 6.27×
+
+So, the best auto-vectorized variant is about 6.27× faster (in cycles:u)
+than the best noauto variant.
+
+## Q6 Speedup for data-parallel loop with conditional execution
+
+> What is the speedup (measured in cycles) of the best `cond1-auto-*C*`
+> variant over the best `cond1-noauto-*C*` variant?
+
+#### Measurement
+
+```
+ Performance counter stats for './cond1-noauto-gcc':
+
+        9785752848      cycles:u                                                              
+           3837578      cycles:k                                                              
+
+       2.091077771 seconds time elapsed
+
+       2.090999000 seconds user
+       0.000000000 seconds sys
+
+
+
+ Performance counter stats for './cond1-noauto-clang':
+
+        9691068704      cycles:u                                                              
+           4364069      cycles:k                                                              
+
+       2.071079227 seconds time elapsed
+
+       2.070859000 seconds user
+       0.000000000 seconds sys
+
+
+
+ Performance counter stats for './cond1-auto-gcc':
+
+         378045479      cycles:u                                                              
+            918524      cycles:k                                                              
+
+       0.082527072 seconds time elapsed
+
+       0.082605000 seconds user
+       0.000000000 seconds sys
+
+
+
+ Performance counter stats for './cond1-auto-clang':
+
+         370389005      cycles:u                                                              
+           1180468      cycles:k                                                              
+
+       0.088556077 seconds time elapsed
+
+       0.088628000 seconds user
+       0.000000000 seconds sys
+```
+cond1-noauto-gcc: 9,785,752,848 cycles:u
+
+cond1-noauto-clang: 9,691,068,704 cycles:u
+
+cond1-auto-gcc: 378,045,479 cycles:u
+
+cond1-auto-clang: 370,389,005 cycles:u
+
+#### Best variants (cycles:u)
+
+Best noauto: cond1-noauto-clang with 9,691,068,704 cycles:u
+
+Best auto: cond1-auto-clang with 370,389,005 cycles:u
+
+#### Speedup (best auto over best noauto)
+
+I compute speedup as cycles(best noauto) / cycles(best auto):
+
+speedup = 9,691,068,704 / 370,389,005 ≈ 26.16×
+
+So, the best auto-vectorized variant is about 26.16× faster (in cycles:u)
+than the best noauto variant.
+
+## Q7 Vectorization overhead
+
+> Which is the first *n* for which `dp5-auto-*C*` is a factor >=1.05
+> faster than the fastest `dp5-noauto-*C*` (speed measured in cycles)?
+> Only show the measurements for this *n* in `Exercises4.txt`, and the
+> others in a transcript that you also include.
+
+> Which is the last *n* for which `dp5-auto-*C*' is a factor <1.05
+> faster than the fastest `dp5-noauto-*C*` (speed measured in cycles)?
+> Only show the measurements for this *n* in `Exercises4.txt`, and the
+> others in a transcript that you also include.
+
+> Is there a *n* for which `dp5-noauto-*C*' is a factor >=1.05 faster
+> than the fastest `dp5-auto-*C*` (speed measured in cycles)? If so,
+> present the measurements for that *n*.
+
+## Q8 Effect of `restrict`
+
+> For *n*=3, what is the speedup (measured in cycles) of the best
+> `dp5-noauto-*C*` over the best `dp6-noauto-*C*`?  For *n*=3, what is
+> the speedup of the best `dp5-auto-*C*` over the best `dp6-auto-*C*`?
+
+> Which is the first *n* for which `dp6-auto-*C*' is a factor >=1.05
+> faster than the fastest `dp6-noauto-*C*` (speed measured in cycles)?
+
+> Which is the last *n* for which `dp6-auto-*C*' is a factor <1.05
+> faster than the fastest `dp6-noauto-*C*` (speed measured in cycles)?
+
+> Which is the last *n* for which `dp6-noauto-*C*' is a factor >=1.05
+> faster than the fastest `dp6-auto-*C*` (speed measured in cycles)?
+

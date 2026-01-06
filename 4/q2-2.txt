@@ -1,0 +1,45 @@
+Script started on 2026-01-06 21:35:40+01:00 [TERM="xterm-256color" TTY="/dev/pts/32" COLUMNS="62" LINES="7"]
+[?2004h[ep12435347:~/Exercises/12435347/4:501] [7mperf stat -e cycles:u [27m[7m.[27m[7m/dp3-noauto-clang >/dev/null[27m[A[C[C[C[C[C[C[C[C[C[C[Cperf stat -e cycles:u ./dp3-noauto-clang >/dev/null
+[?2004l
+ Performance counter stats for './dp3-noauto-clang':
+
+        1294191664      cycles:u                                                              
+
+       0.277057035 seconds time elapsed
+
+       0.276987000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/4:502] [7mperf stat -e cycles:u [27m[7m.[27m[7m/dp3-auto-clang   >/dev/null[27m[A[C[C[C[C[C[C[C[C[C[C[Cperf stat -e cycles:u ./dp3-auto-clang   >/dev/null
+[?2004l
+ Performance counter stats for './dp3-auto-clang':
+
+        1294461461      cycles:u                                                              
+
+       0.277693711 seconds time elapsed
+
+       0.277711000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/4:503] [7mdiff -u dp1.c dp3.c[27m
+[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cdiff -u dp1.c dp3.c
+[A
+[?2004l--- dp1.c	2025-12-11 19:45:18.000000000 +0100
++++ dp3.c	2026-01-06 21:34:25.318478269 +0100
+@@ -3,6 +3,10 @@
+ void axpy1(float a, float *x, float * restrict y, size_t n)
+ {
+   size_t i;
++  
++#ifdef __clang__
++#pragma clang loop vectorize(disable)
++#endif
+   for (i=0; i<n; i++)
+     y[i] += a*x[i];
+ }
+[?2004h[ep12435347:~/Exercises/12435347/4:504] exit
+[?2004lexit
+
+Script done on 2026-01-06 21:39:54+01:00 [COMMAND_EXIT_CODE="1"]

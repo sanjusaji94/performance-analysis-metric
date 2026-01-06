@@ -1,0 +1,57 @@
+Script started on 2026-01-06 23:44:52+01:00 [TERM="xterm-256color" TTY="/dev/pts/32" COLUMNS="62" LINES="17"]
+[?2004h[ep12435347:~/Exercises/12435347/4:501] [7mperf stat -e cycles:u,[27m[7mc[27m[7mycles:k ./cond1-noauto-gcc   >/dev/null[27m[Aperf stat -e cycles:u,cycles:k ./cond1-noauto-gcc   >/dev/null
+[?2004l
+ Performance counter stats for './cond1-noauto-gcc':
+
+        9785752848      cycles:u                                                              
+           3837578      cycles:k                                                              
+
+       2.091077771 seconds time elapsed
+
+       2.090999000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/4:502] [7mperf stat -e cycles:u,[27m[7mc[27m[7mycles:k ./cond1-noauto-clang >/dev/null[27m[Aperf stat -e cycles:u,cycles:k ./cond1-noauto-clang >/dev/null
+[?2004l
+ Performance counter stats for './cond1-noauto-clang':
+
+        9691068704      cycles:u                                                              
+           4364069      cycles:k                                                              
+
+       2.071079227 seconds time elapsed
+
+       2.070859000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/4:503] [7mperf stat -e cycles:u,[27m[7mc[27m[7mycles:k ./cond1-auto-gcc     >/dev/null[27m[Aperf stat -e cycles:u,cycles:k ./cond1-auto-gcc     >/dev/null
+[?2004l
+ Performance counter stats for './cond1-auto-gcc':
+
+         378045479      cycles:u                                                              
+            918524      cycles:k                                                              
+
+       0.082527072 seconds time elapsed
+
+       0.082605000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/4:504] [7mperf stat -e cycles:u,[27m[7mc[27m[7mycles:k ./cond1-auto-clang   >/dev/null[27m[Aperf stat -e cycles:u,cycles:k ./cond1-auto-clang   >/dev/null
+[?2004l
+ Performance counter stats for './cond1-auto-clang':
+
+         370389005      cycles:u                                                              
+           1180468      cycles:k                                                              
+
+       0.088556077 seconds time elapsed
+
+       0.088628000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/4:505] exit
+[?2004lexit
+
+Script done on 2026-01-06 23:45:34+01:00 [COMMAND_EXIT_CODE="0"]

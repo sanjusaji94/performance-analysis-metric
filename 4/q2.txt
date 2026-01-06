@@ -1,0 +1,75 @@
+Script started on 2026-01-06 11:36:20+01:00 [TERM="xterm-256color" TTY="/dev/pts/20" COLUMNS="62" LINES="12"]
+[?2004h[ep12435347:~/Exercises/12435347/4:498] [7m“I ran perf stat multi[27m[7mp[27m[7mle times and used the best (minimum) cycles:u.”[27m[A“I ran perf stat multip[1Ple times and used the best (minimum) cycles:u.[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kcleatr[K[K[K[K[K[K[7mperf stat -e cycles:u [27m[7m.[27m[7m/dp2-noauto-gcc >/dev/null[27m[A[C[C[C[C[C[C[C[C[C[C[C[C[Cperf stat -e cycles:u ./dp2-noauto-gcc >/dev/null
+[?2004l
+ Performance counter stats for './dp2-noauto-gcc':
+
+     1_486_951_203      cycles:u                                                              
+
+       0.322021853 seconds time elapsed
+
+       0.322029000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/4:499] [7mperf stat -e cycles:u [27m[7m.[27m[7m/dp2-auto-gcc   >/dev/null[27m[A[C[C[C[C[C[C[C[C[C[C[C[C[Cperf stat -e cycles:u ./dp2-auto-gcc   >/dev/null
+[?2004l
+ Performance counter stats for './dp2-auto-gcc':
+
+       207_266_284      cycles:u                                                              
+
+       0.047152251 seconds time elapsed
+
+       0.047236000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/4:500] make
+[?2004lgcc  -Wall -O3 -march=native -mtune=znver4 -ffast-math  -c dp2.c -o dp2-auto-gcc.o
+gcc dp2-auto-gcc.o dp2m.o -o dp2-auto-gcc
+gcc  -Wall -O3 -march=native -mtune=znver4 -ffast-math -fno-tree-vectorize -c dp2.c -o dp2-noauto-gcc.o
+gcc dp2-noauto-gcc.o dp2m.o -o dp2-noauto-gcc
+[?2004h[ep12435347:~/Exercises/12435347/4:501] [7mperf stat -e cycles:u [27m[7m.[27m[7m/dp2-noauto-gcc >/dev/null[27m[A[C[C[C[C[C[C[C[C[C[C[C[C[Cperf stat -e cycles:u ./dp2-noauto-gcc >/dev/null
+[?2004l
+ Performance counter stats for './dp2-noauto-gcc':
+
+     4_435_264_978      cycles:u                                                              
+
+       0.951606667 seconds time elapsed
+
+       0.951581000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/4:502] [7mperf stat -e cycles:u [27m[7m.[27m[7m/dp2-auto-gcc   >/dev/null[27m[A[C[C[C[C[C[C[C[C[C[C[C[C[Cperf stat -e cycles:u ./dp2-auto-gcc   >/dev/null
+[?2004l
+ Performance counter stats for './dp2-auto-gcc':
+
+     4_433_779_788      cycles:u                                                              
+
+       0.965342614 seconds time elapsed
+
+       0.965328000 seconds user
+       0.000000000 seconds sys
+
+
+[?2004h[ep12435347:~/Exercises/12435347/4:503] [K[ep12435347:~/Exercises/12435347/4:503] [7mdiff -u dp1.c dp2.c[27m
+[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cdiff -u dp1.c dp2.c
+[A
+[?2004l--- dp1.c	2025-12-11 19:45:18.000000000 +0100
++++ dp2.c	2026-01-06 12:09:31.772507619 +0100
+@@ -3,6 +3,8 @@
+ void axpy1(float a, float *x, float * restrict y, size_t n)
+ {
+   size_t i;
+-  for (i=0; i<n; i++)
+-    y[i] += a*x[i];
+-}
++  for (i=0; i<n; i++) {
++    x[i] = x[i - 1] * (float)n;   // loop-carried dependency
++    y[i] += a * x[i];
++  }
++}
+\ No newline at end of file
+[?2004h[ep12435347:~/Exercises/12435347/4:504] 
+Script done on 2026-01-06 16:03:58+01:00 [COMMAND_EXIT_CODE="0"]

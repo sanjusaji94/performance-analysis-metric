@@ -1,0 +1,22 @@
+Script started on 2026-01-06 23:04:39+01:00 [TERM="xterm-256color" TTY="/dev/pts/32" COLUMNS="62" LINES="17"]
+[?2004h[ep12435347:~/Exercises/12435347/4:501] [7mdiff -u dp1.c dp4.c[27m
+[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cdiff -u dp1.c dp4.c
+[A
+[?2004l--- dp1.c	2025-12-11 19:45:18.000000000 +0100
++++ dp4.c	2026-01-06 22:49:17.325296913 +0100
+@@ -3,6 +3,8 @@
+ void axpy1(float a, float *x, float * restrict y, size_t n)
+ {
+   size_t i;
+-  for (i=0; i<n; i++)
++  for (i=0; i<n; i++){
++    asm volatile("" ::: "memory");   // blocks auto-vectorization
+     y[i] += a*x[i];
+-}
++  }
++}
+\ No newline at end of file
+[?2004h[ep12435347:~/Exercises/12435347/4:502] exit
+[?2004lexit
+
+Script done on 2026-01-06 23:04:50+01:00 [COMMAND_EXIT_CODE="1"]
