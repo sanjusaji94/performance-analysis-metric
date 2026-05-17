@@ -1,4 +1,4 @@
-# Efficient Programs - Common README
+# Efficient Programs
 
 This repository contains four exercises focused on performance analysis and optimization.
 
